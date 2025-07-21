@@ -1,0 +1,135 @@
+{
+  "collapse-filter": true,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "tag:#tema/analytics  ",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "tag:#tema/app_integration  ",
+      "color": {
+        "a": 1,
+        "rgb": 14725458
+      }
+    },
+    {
+      "query": "tag:#tema/cfm  ",
+      "color": {
+        "a": 1,
+        "rgb": 11657298
+      }
+    },
+    {
+      "query": "tag:#tema/compute  ",
+      "color": {
+        "a": 1,
+        "rgb": 5431378
+      }
+    },
+    {
+      "query": "tag:#tema/compute  ",
+      "color": {
+        "a": 1,
+        "rgb": 5431473
+      }
+    },
+    {
+      "query": "tag:#tema/containers  ",
+      "color": {
+        "a": 1,
+        "rgb": 5419488
+      }
+    },
+    {
+      "query": "tag:#tema/database  ",
+      "color": {
+        "a": 1,
+        "rgb": 5395168
+      }
+    },
+    {
+      "query": "tag:#tema/dev_tools  ",
+      "color": {
+        "a": 1,
+        "rgb": 11621088
+      }
+    },
+    {
+      "query": "tag:#tema/front  ",
+      "color": {
+        "a": 1,
+        "rgb": 14701233
+      }
+    },
+    {
+      "query": "tag:#tema/fundamentals  ",
+      "color": {
+        "a": 1,
+        "rgb": 8998221
+      }
+    },
+    {
+      "query": "tag:#tema/governance  ",
+      "color": {
+        "a": 1,
+        "rgb": 11178852
+      }
+    },
+    {
+      "query": "tag:#tema/MAT  ",
+      "color": {
+        "a": 1,
+        "rgb": 6325019
+      }
+    },
+    {
+      "query": "tag:#tema/ML  ",
+      "color": {
+        "a": 1,
+        "rgb": 3107375
+      }
+    },
+    {
+      "query": "tag:#tema/networking  ",
+      "color": {
+        "a": 1,
+        "rgb": 84787
+      }
+    },
+    {
+      "query": "tag:#tema/Security  ",
+      "color": {
+        "a": 1,
+        "rgb": 617887
+      }
+    },
+    {
+      "query": "tag:#tema/storage  ",
+      "color": {
+        "a": 1,
+        "rgb": 5395168
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": false,
+  "centerStrength": 0.255208333333333,
+  "repelStrength": 6.04166666666667,
+  "linkStrength": 1,
+  "linkDistance": 143,
+  "scale": 0.3628873693012228,
+  "close": true
+}

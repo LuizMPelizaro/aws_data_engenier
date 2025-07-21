@@ -1,0 +1,297 @@
+{
+  "main": {
+    "id": "e4df4972aaacb2cf",
+    "type": "split",
+    "children": [
+      {
+        "id": "5aca6da8d5e18911",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6fc2bcf3801c2290",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "graph",
+              "state": {},
+              "pinned": true,
+              "icon": "lucide-git-fork",
+              "title": "Visualização em gráfico"
+            }
+          },
+          {
+            "id": "407fce3a436fc452",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data validation and profiling.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Data validation and profiling"
+            }
+          },
+          {
+            "id": "12ad420773890b47",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Técnicas de data sampling.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Técnicas de data sampling"
+            }
+          },
+          {
+            "id": "ba6fe50b1aec79bc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data modeling, lineage e schema evolution.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Data modeling, lineage e schema evolution"
+            }
+          },
+          {
+            "id": "0f5896df43dc08f6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Database performance optimization.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Database performance optimization"
+            }
+          },
+          {
+            "id": "f545ddd665457afc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Temas/Data Engineering Fundamentals.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Data Engineering Fundamentals"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "64f59dd24ff443a4",
+    "type": "split",
+    "children": [
+      {
+        "id": "2bd1d66c4216b0fe",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3ed7aed7b0651bcb",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "ca7a26f96edc0fda",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#tema/fundatamentals",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "7f4b9c727b41691d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "82984997119a3f03",
+    "type": "split",
+    "children": [
+      {
+        "id": "10739f157fce5232",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "eb07064cf4523bb6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "67690a711eeb5f9b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Lake.md",
+                "linksCollapsed": true,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída para Data Lake"
+            }
+          },
+          {
+            "id": "341fad5b73d330f1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "0c6f146f465b1204",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Lake.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário de Data Lake"
+            }
+          },
+          {
+            "id": "ed252064a4241bc3",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false
+    }
+  },
+  "active": "12ad420773890b47",
+  "lastOpenFiles": [
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data validation and profiling.md",
+    "AWS-Data-Engineer-Certificacao/Temas/Data Engineering Fundamentals.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/SQL.md",
+    "Pasted image 20250721181342.png",
+    "Pasted image 20250721175254.png",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Técnicas de data sampling.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Skew mechanisms.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data modeling, lineage e schema evolution.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Database performance optimization.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Sources.md",
+    "Pasted image 20250719143517.png",
+    "Pasted image 20250719143433.png",
+    "Pasted image 20250719141907.png",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Formats.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Lake.md",
+    "Pasted image 20250719123943.png",
+    "Pasted image 20250719123846.png",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Warehouse vs Data Lake and Data lakehouse.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Lakehouse.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Mesh.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Properties of data.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/ETL e ELT.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Warehouse.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Type of data.md",
+    "AWS-Data-Engineer-Certificacao/AWS-Data-Engenier-Certification.md",
+    "AWS-Data-Engineer-Certificacao/Temas/Management and Governance.md",
+    "AWS-Data-Engineer-Certificacao/Temas/Analytics.md",
+    "AWS-Data-Engineer-Certificacao/Analytics/Amazon EMR.md",
+    "AWS-Data-Engineer-Certificacao/Temas/Containers.md",
+    "AWS-Data-Engineer-Certificacao/Temas/Compute.md",
+    "AWS-Data-Engineer-Certificacao/Temas/App Integration.md",
+    "AWS-Data-Engineer-Certificacao/Temas/Networking and Content Delivery.md",
+    "Pasted image 20250716195511.png",
+    "AWS-Data-Engineer-Certificacao/Temas/Sem título",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals",
+    "Security-Identity-And-Compliance",
+    "AWS-Data-Engineer-Certificacao/Temas",
+    "Sem título.canvas",
+    "create_path.py",
+    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Migration-And-Transfer",
+    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Storage",
+    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Security,-Identity,-And-Compliance",
+    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Frontend-Web",
+    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Machine-Learning"
+  ]
+}
