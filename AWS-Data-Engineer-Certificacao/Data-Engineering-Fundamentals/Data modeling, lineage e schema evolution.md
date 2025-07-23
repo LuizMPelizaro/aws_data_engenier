@@ -1,4 +1,5 @@
 #tema/fundamentals 
+# Data modeling, lineage e schema evolution (Portugues)
 ## Data Modeling (Resumo)
 
 O guia do exame menciona que é necessário entender o que é **modelagem de dados**, mas **não exige conhecimento de modelos específicos**, como o **modelo estrela** ou **modelo floco de neve**.
@@ -46,3 +47,56 @@ A **linhagem de dados** é uma **representação visual** que rastreia o **fluxo
 
 - Ferramenta da AWS para **descoberta, validação, compatibilidade e registro de esquemas**.
 - Gerencia **versões de esquemas** e garante a **compatibilidade com versões anteriores**.
+
+# Data modeling, lineage e schema evolution (Ingles)
+## Data Modeling (Summary)
+
+The exam guide mentions that it is necessary to understand what **data modeling** is, but it **does not require in-depth knowledge of specific models** such as the **star schema** or **snowflake schema**.
+
+![[Pasted image 20250719143433.png]]
+
+### Star Schema
+
+- Contains a **fact table** (main table with metrics).
+- Contains **dimension tables**, which provide context or descriptive information about the facts.
+- Uses **primary keys** and **foreign keys**.
+- Often represented with **ERD diagrams** (*Entity-Relationship Diagrams*).
+
+Useful links:  
+- [Star Schema](https://www.engdeanalytics.com.br/chapters/08/03/esquema_estrela.html)  
+- [Snowflake Schema](https://www.mindtek.com.br/2024/03/modelagem-de-dados-snowflake/)
+
+---
+
+## Data Lineage
+
+**Data lineage** is a **visual representation** that tracks the **flow and transformation of data** throughout its lifecycle — from source to final destination.
+
+![[Pasted image 20250719143517.png]]
+
+### Importance
+
+- Helps **trace transformation errors** back to the source.
+- Aids in **debugging data pipelines**.
+- Useful for **regulatory compliance**.
+- Provides a **clear understanding** of how data has been moved, transformed, and used.
+
+---
+
+## Schema Evolution
+
+**Schema evolution** is the **ability to adapt and change the data schema over time**, without disrupting existing systems.  
+**Always remember how tools like Apache Iceberg are built to handle schema evolution gracefully.**  
+[IceBerg](https://www.notion.so/ICEBERG-211cb6116377802892f6e7156ac0ed3a)
+
+### Importance
+
+- Supports **changing business requirements**.
+- Avoids **manual migrations** when new fields are added.
+- Enables **backward compatibility** with old data.
+- Allows introducing new fields or changes **without breaking existing records**.
+
+### Example: Glue Schema Registry
+
+- AWS tool for **discovering, validating, checking compatibility, and registering schemas**.
+- Manages **schema versions** and ensures **backward/forward compatibility**.

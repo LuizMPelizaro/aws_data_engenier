@@ -1,5 +1,5 @@
 #tema/fundamentals
-# Data Mesh
+# Data Mesh (Portugues)
 ### O que é?
 
 É utilizado na organização e gerenciamento de como você estrutura acesso e a propriedade dos dados em uma organização maior.
@@ -30,3 +30,45 @@ Essas ferramentas criam uma **infraestrutura de autoatendimento**, para que os d
 ### Importante:
 - **Data Mesh não é uma tecnologia**, mas sim um **paradigma de gestão e arquitetura organizacional de dados**.
 - Pode ser implementado usando várias tecnologias, desde que respeite seus princípios.
+
+# Data Mesh (Inglês)
+
+### What is it?
+
+**Data Mesh** is a paradigm for organizing and managing how data is accessed and owned across large organizations.
+
+The central idea is that **individual teams own their own data**. If a specific team, department, or domain is responsible for collecting or working closely with a specific type of data, that team becomes responsible for **maintaining and exposing that data as a data product** to the rest of the organization.
+
+It promotes a **decentralized data world**, where data belongs to the teams who know it best — but **central principles and standards ensure data access, interoperability, and control** across the company.
+
+Each domain can have its own **data products**, and there are often **cross-domain use cases** where data from multiple domains is needed for analysis or decision-making.
+
+---
+
+### Federated Governance
+
+A **federated governance model** is key, with **central standards and policies** in place:
+
+- Each domain is responsible for **data integrity** and **security**.
+- **Access controls** must be enforced.
+- **Organizational standards** ensure **interoperability** and **compliance**.
+
+---
+
+### AWS’s Role in Implementing Data Mesh
+
+AWS offers multiple tools to help **implement a Data Mesh architecture**:
+
+- **AWS Lake Formation**: for access control, data cataloging, and governance.
+- **AWS Glue**: as a metadata catalog and ETL integration tool.
+- **Amazon S3**: as the storage layer (Data Lake foundation).
+- **Amazon Athena** or **Redshift Spectrum**: for querying the data directly in S3.
+
+These tools together enable a **self-service infrastructure**, allowing domains to **publish and consume data products** under a **centralized governance framework**.
+
+---
+
+### Important Notes:
+
+- **Data Mesh is not a technology**, but rather a **paradigm for data architecture and organizational management**.
+- It can be implemented using various tools and platforms, as long as the **core principles** are respected.

@@ -14,3 +14,5 @@
 [[Database performance optimization]]
 [[Data validation and profiling]]
 [[Data Skew mechanisms]]
+[[GIT]]
+[[SQL]]

@@ -1,5 +1,5 @@
 #tema/fundamentals
-
+# Data Lake (português)
 Um **Data Lake** é um grande repositório de armazenamento que contém dados em seu **formato bruto e nativo**, sem necessidade de transformação inicial. Ele pode armazenar **dados estruturados, semiestruturados e não estruturados** em um único local.
 
 > 💬 Definição prática:  
@@ -68,3 +68,74 @@ Posteriormente:
 > - **Data Lake (ex: S3 + Glue + Athena)**
 > - **Data Warehouse (ex: Redshift)**
 > - E a arquitetura **Lakehouse** (Redshift Spectrum, Apache Hudi, Delta Lake, etc.)
+
+# Data Lake (Inglês)
+
+A **Data Lake** is a large-scale storage repository that holds data in its **raw, native format**, without requiring initial transformation. It can store **structured, semi-structured, and unstructured** data all in one place.
+
+> 💬 Practical definition:  
+> “Let’s dump all the data here first and figure out what to do with it later.”
+
+---
+
+## Key Characteristics
+
+- **Stores massive volumes of raw data** with **minimal or no preprocessing**.
+- Supports various types of data:
+  - **Structured** (e.g., tables, CSVs)
+  - **Semi-structured** (e.g., JSON, XML)
+  - **Unstructured** (e.g., images, videos, PDFs)
+- Flexible for multiple processing methods:
+  - **Batch**
+  - **Real-time**
+  - **Streaming**
+- Data is explored later for:
+  - Transformations
+  - Analytical queries
+  - Machine Learning model training
+
+---
+
+## AWS Services Related to Data Lake
+
+### 🗂️ **Amazon S3**
+- Primary storage service for Data Lakes on AWS.
+- Stores raw data in its original format.
+
+### 🧠 **AWS Glue**
+- Serverless ETL tool that:
+  - **Automatically detects schemas** of data stored in S3.
+  - Registers metadata in the **Glue Data Catalog**.
+- Enables other AWS services to understand the structure of your data.
+
+### 🔎 **Amazon Athena**
+- Serverless SQL query service for data in S3.
+- Uses the **Glue Data Catalog** as a metastore to interpret data schemas and formats in the Data Lake.
+
+---
+
+## Practical Example
+
+You have server logs, JSON files from external APIs, user-uploaded images, and CSV spreadsheets.  
+Instead of processing and organizing everything upfront, you store all the files in a **bucket on Amazon S3**.
+
+Later:
+
+- Use **Glue** to infer the schema from the raw files.
+- Use **Athena** to query the data directly on S3 using SQL, with no need to move the files.
+- If needed, integrate with **Amazon Redshift Spectrum** or **Amazon EMR** for more advanced analytics.
+
+---
+
+## When to Use a Data Lake?
+
+- When dealing with **a wide variety of data formats** and **large volumes** of data.
+- When a flexible, scalable repository is needed to **store before processing**.
+- When data will be used for multiple purposes: BI, machine learning, data science, etc.
+
+---
+
+> ✅ For certification exams, make sure to understand the difference between:
+> - **Data Lake** (e.g., S3 + Glue + Athena)
+> - **Data Warehouse** (e.g., Redshift)
+> - And the **Lakehouse architecture** (e.g., Redshift Spectrum, Apache Hudi, Delta Lake)

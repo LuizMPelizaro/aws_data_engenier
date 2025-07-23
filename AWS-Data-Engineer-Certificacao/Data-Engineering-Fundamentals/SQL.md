@@ -1,3 +1,4 @@
+#tema/fundamentals  
 O exame de certificação espera que você tenha **conhecimento sólido de SQL**, pois é uma ferramenta fundamental no dia a dia de qualquer engenheiro de dados.
 
 ---

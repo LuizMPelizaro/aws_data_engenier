@@ -61,3 +61,65 @@ Como diferentes áreas têm necessidades diferentes, o Data Warehouse pode ser p
 ---
 
 > ✅ Para a prova, entenda quando escolher um **Data Warehouse (ex: Redshift)** vs. um **Data Lake (ex: S3 com Athena)** e os **casos de uso de cada abordagem**.
+
+
+# Data Warehouse (DWH) (Inglês)
+
+A **Data Warehouse (DWH)** is a centralized repository designed and optimized for the **analysis of large volumes of structured data**. It is ideal for **complex analytical queries**, typically consumed by BI tools, dashboards, and analytical models.
+
+---
+
+## Key Characteristics
+
+- Designed for **complex queries and analytical workloads** (OLAP).
+- Data is **cleaned, transformed, and loaded** via **ETL** or **ELT** pipelines.
+- Optimized for **heavy read operations**, with large aggregations and filters.
+- Common schema designs include:
+  - **Star schema**
+  - **Snowflake schema**
+
+> 📌 It's important to understand **star** and **snowflake** schemas for the exam.
+
+- Supports the creation of **data marts** tailored to specific business units.
+- AWS example: **Amazon Redshift**
+
+---
+
+## Practical Example
+
+Imagine working at **Amazon**. You have multiple data sources:
+
+- Raw clickstream logs
+- Purchase transaction data
+- Product catalog information
+
+These data sets need to be related to answer questions like:
+
+> “What did users click on before making a purchase?”  
+> “Which product categories have the highest conversion rates?”
+
+All this data is loaded into a centralized **Data Warehouse** and structured for efficient analytical queries.
+
+---
+
+## Views and Data Marts
+
+Different business areas require customized views or **data marts**:
+
+- **Accounting:** financial view with aggregated sales data
+- **Marketing/Product:** analytical view with behavioral click and purchase data
+- **Machine Learning:** large-scale extracts for training models, such as recommendation systems
+
+---
+
+## Key AWS Services
+
+- **Amazon Redshift** → Core DWH service in AWS
+- **AWS Glue / Glue DataBrew** → ETL and data preparation tools
+- **Amazon S3** → Staging area for ETL/ELT pipelines
+- **Amazon Redshift Spectrum** → Query data directly from S3 without loading into Redshift
+- **Amazon QuickSight** → BI and visualization over DWH data
+
+---
+
+> ✅ For the exam, understand when to choose a **Data Warehouse (e.g., Redshift)** vs. a **Data Lake (e.g., S3 + Athena)** and their respective **use cases**.

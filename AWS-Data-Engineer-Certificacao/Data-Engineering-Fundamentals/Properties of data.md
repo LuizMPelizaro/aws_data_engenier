@@ -1,4 +1,5 @@
 #tema/fundamentals
+# Propriedade dos dados
 ## Volume
 
 O volume refere-se à **quantidade de dados** que estamos lidando.
@@ -87,3 +88,91 @@ A escolha da arquitetura de dados precisa levar em consideração essa diversida
 - Utilizar ferramentas que permitam consultar dados heterogêneos de forma unificada (ex: **Athena**, **Presto**, **Redshift Spectrum**).
 
 ---
+# Data Properties
+
+## Volume
+
+Volume refers to the **amount of data** we are dealing with.
+
+- What is the **current size** of the data?
+- Does this affect **how we store and process** the data?
+
+We may be dealing with gigabytes, terabytes, or even petabytes of data. This introduces challenges such as:
+
+- Where to store it?
+- How to process it?
+- How to extract value from the data?
+
+### Examples
+
+1. **Social Media Platforms**  
+   A large platform may generate terabytes of data per day — including images, videos, and text.  
+   To handle this scale, it requires:
+   - A scalable storage system.
+   - Distributed analytics and query tools, such as **Amazon EMR**, **Amazon Athena**, or a **Data Lake**.
+
+2. **Retailers with years of transactions**  
+   These companies may accumulate petabytes of information.  
+   In such cases:
+   - A distributed system (like **Hadoop** or **Databricks**) is needed to process and move data in parallel.
+   - However, for smaller volumes, a traditional monolithic database may be sufficient.
+
+> ℹ️ AWS services for large data transport:
+> - **AWS Snowball**  
+> - **AWS Snowmobile**  
+> These services help with the **physical transfer of massive data volumes**.
+
+---
+
+## Velocity
+
+Velocity refers to the **speed at which data is generated, collected, and processed**.
+
+- Will the data be processed in **batches** or in **real time (streaming)**?
+- Is **low latency** critical?
+
+In high-velocity scenarios, it may be necessary to use near real-time ingestion and processing tools such as:
+
+- **Amazon Kinesis Data Streams**
+- **Apache Kafka**
+- **AWS Lambda** with real-time triggers
+
+### Examples
+
+1. **IoT Devices (Internet of Things)**  
+   Data can be generated every millisecond by sensors.  
+   A real-time ingestion system is essential to provide timely responses.
+
+2. **High-Frequency Trading**  
+   Every millisecond matters.  
+   Transaction order and consistency must be ensured with **minimal latency**.
+
+### ⚠️ Important
+
+The AWS exam may test your ability to distinguish **real-time** from **near real-time**.
+
+A common question:
+
+> Why would you choose **Kinesis Data Streams** over **Kinesis Data Firehose** for a given use case?
+
+---
+
+## Variety
+
+Variety refers to the **types, formats, and sources** of data.
+
+- Is the data **structured**, **semi-structured**, or **unstructured**?
+- Where does the data come from? What are the sources?
+
+Each data type may require different technologies for storage and analysis. Additionally, you may need to integrate data into a unified platform to get a complete view.
+
+### Examples
+
+1. A project might involve multiple sources, such as:
+   - **Structured data** (relational databases like MySQL or PostgreSQL),
+   - **Semi-structured data** (JSON, XML),
+   - **Unstructured data** (emails, videos, images).
+
+The data architecture must consider this diversity. You may need to:
+- Store data in different systems (e.g., S3 for unstructured, RDS for structured).
+- Use tools that can query heterogeneous data in a unified way (e.g., **Athena**, **Presto**, **Redshift Spectrum**).

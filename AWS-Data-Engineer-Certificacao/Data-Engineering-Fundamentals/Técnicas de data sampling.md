@@ -1,4 +1,5 @@
 #tema/fundamentals 
+# Técnicas de amostragem de dados
 Existem diferentes formas de selecionar subconjuntos de dados para análise. A escolha da técnica correta pode influenciar diretamente na representatividade e na qualidade dos resultados. Abaixo estão as principais técnicas de amostragem:
 
 ---
