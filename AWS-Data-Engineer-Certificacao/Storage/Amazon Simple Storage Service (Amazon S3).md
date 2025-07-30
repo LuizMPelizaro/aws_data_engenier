@@ -579,9 +579,122 @@ Se cada prefixo pode ter até 5.500 GETs/s, com 4 prefixos diferentes é possív
     - Pode ser usado para **recuperar apenas uma parte** específica do arquivo (ex.: cabeçalho de um vídeo).
 - Útil para **acelerar downloads** e otimizar consumo de rede.
  ![[Pasted image 20250729174605.png]]
+
+## S3 - Object Encryption
+Existem 4 metodos de criptografia de arquivos para o S3 
+
+### Server-Side Encryption (SSE)
+#### SSE com S3-Managed Keys (SSE-3) Default
+* Criptografa os objetos da S3 usando uma chave que é manipulada, gerenciada e de propriedade da AWS. (Não temos acesso a essa key)
+* O objeto é criptografado pelo server da AWS (server-side)
+* Criptografado com [AES-256](https://pt.wikipedia.org/wiki/Advanced_Encryption_Standard)
+* Para que o objeto seja criptografado deve ser definido o cabeçalho `x-amz-server-side-encryption": "AES256"` para que o S3 criptografe o objeto
+* Ativo por padrão em novos buckets e novos objetos
+![[Pasted image 20250730172111.png]]
+---
+#### SSE com KMS armazenadas no AWS KMS (SSE-KMS)
+* Aproveita o AWS Key Management Service ([AWS KMS](obsidian://open?vault=estudos_aws_data_engenier&file=AWS-Data-Engineer-Certificacao%2FSecurity-Identity-And-Compliance%2FAWS%20Key%20Management%20Service%20(AWS%20KMS))) para gerenciar chaves de criptografia
+* Vantagens do KMS: controle do usuário + uso da chave de auditoria usando [CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+* Objeto é criptografado no lado do servidor
+* Para que o objeto seja criptografado deve ser definido o cabeçalho `"x-amz-server-side-encryption": "aws:kms"`
+![[Pasted image 20250730172256.png]]
+##### Limitações do SSE-KMS 
+- Operações contam para o limite de requisições do KMS:
+    - **Upload**: chama `GenerateDataKey` na API do KMS.
+    - **Download**: chama `Decrypt` na API do KMS.
+- Limite padrão: **5.500 / 10.000 / 30.000 req/s** (dependendo da região).
+- É possível solicitar aumento via **Service Quotas Console**.
+![[Pasted image 20250730172536.png]]
+---
+#### DSSE-KMS
+- "Dual-Layer Server-Side Encryption" com chaves no KMS.
+- Aplica **duas camadas de criptografia independentes** para maior segurança.
+---
+#### SSE com Customer-provided Keys (SSE-C)
+* Cliente **gera e gerencia suas próprias chaves**.
+- Criptografia feita pelo servidor S3, mas **a chave nunca é armazenada pela AWS**.
+- Requisitos:
+    - Conexão **HTTPS obrigatória**.
+    - Chave fornecida nos cabeçalhos HTTP **em cada requisição**.
+- Útil para compliance onde as chaves não podem ser armazenadas na nuvem.
+![[Pasted image 20250730172751.png]]
+---
+### Client-Side Encryption (O cliente criptografa)
+- O cliente **criptografa localmente** antes de enviar ao S3.
+- Descriptografia também é feita localmente.
+- O cliente gerencia **totalmente** as chaves.
+- Pode ser implementada com bibliotecas como a **Amazon S3 Encryption Client Library**.
+![[Pasted image 20250730173018.png]]
+Para o exame, é importante entender quais são utlizadas para cada situação
+
+----
+### S3 - Encryption in transit (SSL/TLS)
+- Protege os dados **em trânsito** entre cliente e S3.
+- S3 possui dois endpoints:
+    - `HTTP` – **não criptografado**.
+    - `HTTPS` – **criptografado** com SSL/TLS.
+- **HTTPS é recomendado** (e obrigatório para SSE-C).
+- É possível **forçar** que uploads/downloads usem apenas HTTPS.
+* Como forçar a criptografia em transito (SSL/TLS):
+![[Pasted image 20250730174441.png]]
+
+## S3 - Criptografia padrão vs Politicas de bucket
+- A criptografia **SSE-S3** pode ser aplicada **automaticamente** a todos os novos objetos armazenados no bucket (**Default Encryption**).
+- Opcionalmente, é possível **forçar o uso de criptografia** criando uma **política de bucket** que:
+    - Recusa chamadas de API `PUT` para o S3 **sem criptografia**.
+    - Pode exigir tipos específicos de criptografia, como **SSE-KMS** ou **SSE-C**.
+- **Nota:** As **políticas de bucket** são avaliadas **antes** da configuração de **Default Encryption**.  
+    Ou seja, se a política bloquear um upload sem criptografia, ele será rejeitado **antes** que o S3 aplique a criptografia padrão.
+- Exemplo:
+```json
+{
+  "Version": "2012-10-17",
+  "Id": "ForceS3Encryption",
+  "Statement": [
+    {
+      "Sid": "DenyUnEncryptedObjectUploads",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::NOME_DO_BUCKET/*",
+      "Condition": {
+        "StringNotEqualsIfExists": {
+          "s3:x-amz-server-side-encryption": [
+            "AES256",
+            "aws:kms"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+## S3- Access Points
+O **Amazon S3 Access Points** simplifica o gerenciamento de **acesso e segurança** para buckets S3, especialmente em ambientes com múltiplos aplicativos ou equipes acessando os mesmos dados.
+- Cada **Access Point** possui:
+    - **Nome DNS exclusivo**:
+        - **Internet Origin**: acessível publicamente (seguindo políticas definidas).
+        - **VPC Origin**: acessível apenas a partir de uma VPC.
+    - **Política própria** (_Access Point Policy_), semelhante à **Bucket Policy**, mas aplicada **somente aos acessos via aquele ponto**.
+- Permite aplicar **regras de segurança específicas** por aplicação ou equipe, sem alterar a política global do bucket.
+- Facilita **gerenciamento em escala** para grandes ambientes com diversos consumidores de dados.
+![[Pasted image 20250730200104.png]]
+### VPC Origin
+- Configura o Access Point para ser **acessível apenas de dentro de uma VPC**.
+- Necessário criar um **VPC Endpoint** (Gateway ou Interface) para acessar o ponto.
+- A **VPC Endpoint Policy** deve permitir acesso tanto:
+    - Ao **bucket alvo**.
+    - Ao **Access Point**.
+- Garantia de **isolamento de tráfego** — dados nunca saem da rede privada da AWS.
+### Quando usar Access Points
+- Diferentes **times** ou **aplicações** precisam de acesso a diferentes partes do bucket.
+- Necessidade de **isolar tráfego privado** de uma VPC para o S3.
+- Aplicar **políticas de acesso específicas** sem impactar o acesso geral ao bucket.
+![[Pasted image 20250730200219.png]]
 ## Referencia
 [Conteudo S3 AWS](https://aws.amazon.com/pt/s3/)
 [AWS Glacier](https://aws.amazon.com/pt/s3/storage-classes/glacier/)
 [Categorias de armazenamento do Amazon S3](https://aws.amazon.com/pt/s3/storage-classes/)
 [Replicate](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html)
- 
+   
