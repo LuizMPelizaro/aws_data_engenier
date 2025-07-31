@@ -692,6 +692,119 @@ O **Amazon S3 Access Points** simplifica o gerenciamento de **acesso e seguranç
 - Necessidade de **isolar tráfego privado** de uma VPC para o S3.
 - Aplicar **políticas de acesso específicas** sem impactar o acesso geral ao bucket.
 ![[Pasted image 20250730200219.png]]
+
+## S3 Object Lambda
+
+###  Como funciona
+1. Você possui **apenas um bucket S3** contendo os objetos originais.
+2. Cria um **S3 Access Point** normal.
+3. Configura um **S3 Object Lambda Access Point**, vinculado ao Access Point original.
+4. Associa uma **função AWS Lambda** para processar o objeto **antes** de retorná-lo ao cliente.
+
+---
+###  Casos de uso
+- **Anonimização de dados sensíveis**  
+    Ex.: Remover informações pessoais (PII) para ambientes analíticos ou não produtivos.
+- **Conversão de formatos**  
+    Ex.: Transformar XML em JSON no momento da leitura.
+- **Processamento de imagens em tempo real**  
+    Ex.: Redimensionamento e adição de marca d’água específica para o usuário que fez a solicitação.
+- **Filtragem de dados**  
+    Ex.: Retornar apenas colunas ou linhas relevantes de um CSV grande.
+
+---
+### Benefícios
+- Elimina a necessidade de manter várias cópias de objetos processados.
+- Aplica transformações **sob demanda**.
+- Reduz custos de armazenamento.
+- Permite **personalização por usuário** no momento da leitura.
+- **O S3 Object Lambda não cria nem armazena uma nova cópia no bucket S3.**
+![[Pasted image 20250731184442.png]]
+# S3 – Storage Lens
+
+O **Amazon S3 Storage Lens** fornece **visibilidade centralizada** para analisar, compreender e otimizar o uso do armazenamento em toda uma **conta** ou **organização AWS**.
+
+---
+## 🔹 Principais Recursos
+- Analisar e otimizar o **armazenamento** em toda a organização AWS.
+- Detectar **anomalias**, identificar **oportunidades de economia** e melhorar práticas de **proteção de dados**.
+- Métricas de uso e atividade para até **30 dias**.
+- Dados podem ser agregados por:
+  - Organização
+  - Conta específica
+  - Região
+  - Bucket
+  - Prefixo
+- Possibilidade de exportar métricas **diariamente** para um bucket S3 (CSV ou Parquet).
+- Disponível via **painel padrão** ou **painéis personalizados**.
+
+---
+## Storage Lens – Default Dashboard
+- Pré-configurado pelo Amazon S3.
+- Exibe dados **multi-região** e **multi-conta**.
+- Não pode ser excluído, mas pode ser **desativado**.
+- Gratuito (com métricas padrão).
+
+---
+## Storage Lens – Tipos de Métricas
+
+### **1. Summary Metrics**
+- Informações gerais sobre armazenamento.
+- Exemplos: `StorageBytes`, `ObjectCount`.
+- Uso: identificar buckets/prefixos de crescimento rápido ou não utilizados.
+
+---
+### **2. Cost-Optimization Metrics**
+- Insights para **reduzir custos de armazenamento**.
+- Exemplos: `NonCurrentVersionStorageBytes`, `IncompleteMultipartUploadStorageBytes`.
+- Uso:
+  - Encontrar uploads multipart incompletos.
+  - Identificar objetos para mover para classes de armazenamento mais baratas.
+
+---
+### **3. Data-Protection Metrics**
+- Avalia recursos de **proteção de dados**.
+- Exemplos: `VersioningEnabledBucketCount`, `MFADeleteEnabledBucketCount`, `SSEKMSEnabledBucketCount`, `CrossRegionReplicationRuleCount`.
+- Uso: encontrar buckets que não seguem as melhores práticas de segurança.
+
+---
+### **4. Access-Management Metrics**
+- Analisa **propriedade de objetos** e controle de acesso.
+- Exemplo: `BucketOwnerEnforcedBucketCount`.
+- Uso: verificar configurações de propriedade de objetos.
+
+---
+### **5. Event Metrics**
+- Mostra quais buckets possuem **notificações de eventos S3** habilitadas.
+- Exemplo: `EventNotificationEnabledBucketCount`.
+
+---
+### **6. Performance Metrics**
+- Identifica buckets com **Transfer Acceleration** ativado.
+- Exemplo: `TransferAccelerationEnabledBucketCount`.
+
+---
+### **7. Activity Metrics**
+- Mede como o armazenamento é acessado.
+- Exemplos: `GetRequests`, `PutRequests`, `ListRequests`, `BytesDownloaded`.
+
+---
+### **8. Detailed Status Code Metrics**
+- Analisa **códigos HTTP** retornados pelo S3.
+- Exemplos: `200OKStatusCount`, `403ForbiddenErrorCount`, `404NotFoundErrorCount`.
+
+---
+## Free vs Paid
+
+| Categoria | Gratuito | Avançado (Pago) |
+|-----------|----------|-----------------|
+| Nº de métricas | ~28 métricas básicas | Métricas extras + recomendações |
+| Retenção | 14 dias | 15 meses |
+| Tipos de métricas | Uso e atividade básicas | Otimização de custo, proteção de dados, códigos de status detalhados |
+| Exportação para CloudWatch | Não incluso | Incluso |
+| Agregação por prefixo | Não | Sim |
+#### IMPORTANTE , TESTAR PARA ENTENDER COMO FUNCIONA
+![[Pasted image 20250731191714.png]]
 ## Referencia
 [Conteudo S3 AWS](https://aws.amazon.com/pt/s3/)
 [AWS Glacier](https://aws.amazon.com/pt/s3/storage-classes/glacier/)
