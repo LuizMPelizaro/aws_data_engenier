@@ -9,3 +9,5 @@ Serviços para armazenamento em bloco, arquivos e objetos.
 - [[Storage/Amazon Elastic Block Store (Amazon EBS)]]
 - [[Storage/Amazon Elastic File System (Amazon EFS)]]
 - [[Storage/Amazon Simple Storage Service (Amazon S3)]]
+* [[EBS VS EFS]]
+* 
