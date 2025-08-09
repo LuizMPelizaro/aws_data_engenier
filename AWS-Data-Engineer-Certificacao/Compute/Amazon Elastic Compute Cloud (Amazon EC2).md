@@ -57,3 +57,54 @@ A t2.micro é parte do free tier
 * Veremos que nosso servidor web é iniciado usando EC2 user data
 * Aprenderemos a ligar, desligar e terminar uma instancia
 O código usado esta logo acima.
+
+## EC2 Instance types
+* Existem diferentes tipos de [instancias](https://aws.amazon.com/pt/ec2/instance-types/) EC2 que são otimizadas para tipos diferentes de caso de uso.
+* A AWS segue uma convenção de nomes para as instancias.
+						m5.2xlarge
+* `m`: classe da instancia 
+* `5`: geração (AWS sempre esta evoluindo suas instancias)
+* `2xlarge`: tamanho dentro da classe de instância
+## 1. Propósito Geral
+**Prefixos**: `t`, `m`, `a`, `mac`  
+**Características**: equilíbrio entre **CPU, memória e rede**.  
+**Casos de uso**:
+- Servidores web
+- Repositórios de código
+- Aplicações de negócios de uso geral
+
+> 💡 **Exemplo no curso**: `t2.micro` (Free Tier) – 1 vCPU, 1 GB RAM
+
+---
+## 2. Computação Otimizada
+**Prefixos**: `c`  
+**Características**: alto desempenho de CPU.  
+**Casos de uso**:
+- Workloads batch
+- Transcoding de mídia
+- Web servers de alta performance
+- HPC (High Performance Computing)
+- Modelagem científica e machine learning
+- Servidores de jogos dedicados
+---
+## 3. Memória Otimizada
+**Prefixos**: `r`, `x`, `u`, `z`  
+**Características**: muita memória RAM por vCPU.  
+**Casos de uso**:
+- Bancos de dados (SQL/NoSQL) de alto desempenho
+- Cache distribuído em larga escala (Redis, Memcached)
+- Data warehouses
+- Processamento em tempo real de grandes datasets em memóri
+---
+## 4. Armazenamento Otimizado
+**Prefixos**: `i`, `d`, `h`  
+**Características**: I/O de disco extremamente rápido (storage local NVMe/SATA).  
+**Casos de uso**:
+- OLTP de alta frequência
+- Bancos de dados que exigem alta taxa de leitura/gravação
+- Sistemas de arquivos distribuídos
+- Data warehousing com acesso sequencial de grandes volumes
+
+#### 📌 **Ferramenta útil para comparação**: [https://instances.vantage.sh/](https://instances.vantage.sh/)  
+Permite comparar preço, CPU, memória e rede de todas as instâncias EC2.
+Todos os exemplos acima estão no site da AWS , existem outros tipos de  [instancias](https://aws.amazon.com/pt/ec2/instance-types/) otimizadas.
