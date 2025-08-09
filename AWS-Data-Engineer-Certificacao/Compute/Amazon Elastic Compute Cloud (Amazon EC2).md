@@ -7,8 +7,8 @@
 - Permite:
     - **Aluguel de máquinas virtuais** (instâncias EC2).
     - **Armazenamento em disco virtual**:
-        - **[EBS](obsidian://open?vault=aws_data_engenier-master&file=AWS-Data-Engineer-Certificacao%2FStorage%2FAmazon%20Elastic%20Block%20Store%20(Amazon%20EBS))** (Elastic Block Store) – armazenamento em blocos, persistente.
-        - **[EFS](obsidian://open?vault=aws_data_engenier-master&file=AWS-Data-Engineer-Certificacao%2FStorage%2FAmazon%20Elastic%20File%20System%20(Amazon%20EFS))** (Elastic File System) – sistema de arquivos compartilhado.
+        - **[EBS](obsidian://open?vault=aws_data_engenier&file=AWS-Data-Engineer-Certificacao%2FStorage%2FAmazon%20Elastic%20Block%20Store%20(Amazon%20EBS))** (Elastic Block Store) – armazenamento em blocos, persistente.
+        - **[EFS](obsidian://open?vault=aws_data_engenier&file=AWS-Data-Engineer-Certificacao%2FStorage%2FAmazon%20Elastic%20File%20System%20(Amazon%20EFS))** (Elastic File System) – sistema de arquivos compartilhado.
     - **Balanceamento de carga** com **ELB** (Elastic Load Balancing).
     - **Escalabilidade automática** com **Auto Scaling Groups (ASG)**.
 - Base para entender o funcionamento de outros serviços em nuvem

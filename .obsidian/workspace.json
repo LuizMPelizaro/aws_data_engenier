@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Storage/Amazon Simple Storage Service (Amazon S3).md",
+                "file": "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Amazon Simple Storage Service (Amazon S3)"
+              "title": "Amazon Elastic Compute Cloud (Amazon EC2)"
             }
           }
         ],
@@ -87,8 +87,7 @@
               "title": "Marcadores"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -194,10 +193,13 @@
   },
   "active": "1e14a217a63c985f",
   "lastOpenFiles": [
+    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Registry (Amazon ECR).md",
+    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Kubernetes Service (Amazon EKS).md",
+    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Service (Amazon ECS).md",
+    "AWS-Data-Engineer-Certificacao/Storage/Amazon Simple Storage Service (Amazon S3).md",
     "Pasted image 20250731191714.png",
     "Pasted image 20250731191554.png",
     "Pasted image 20250731184442.png",
-    "AWS-Data-Engineer-Certificacao/Storage/Amazon Simple Storage Service (Amazon S3).md",
     "Pasted image 20250730200219.png",
     "Pasted image 20250730200104.png",
     "Pasted image 20250730174441.png",
@@ -208,7 +210,6 @@
     "Pasted image 20250730172751.png",
     "Pasted image 20250730172536.png",
     "Pasted image 20250730172256.png",
-    "Pasted image 20250730172111.png",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Type of data.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Técnicas de data sampling.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Lake.md",
@@ -228,8 +229,6 @@
     "AWS-Data-Engineer-Certificacao/Temas/Data Engineering Fundamentals.md",
     "AWS-Data-Engineer-Certificacao/AWS-Data-Engenier-Certification.md",
     "AWS-Data-Engineer-Certificacao/Temas/Management and Governance.md",
-    "AWS-Data-Engineer-Certificacao/Temas/Analytics.md",
-    "AWS-Data-Engineer-Certificacao/Analytics/Amazon EMR.md",
     "AWS-Data-Engineer-Certificacao/Temas/Sem título",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals",
     "Security-Identity-And-Compliance",
