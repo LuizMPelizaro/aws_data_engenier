@@ -167,3 +167,128 @@ Exemplo de uso de Security Groups:
 * 80 = HTTP - Acessoa a websites não seguros
 * 443 = HTTPS - Acesso a sites seguros
 * 3389 = RDP - (Remote Desktop Protocol) - faz login em uma instância do Windows
+
+## EC2 Instances Purchasing Options
+* On-Demand Instances - Carga de trabalho curta, preços previsíveis, pagamento por segundo
+* Reserved (1 & 3 anos)
+	* Instancias Reservadas - Cargas de trabalho longas.
+	* Instâncias Reservadas Conversíveis - cargas de trabalho longas com instancias flexíveis.
+* Savings Plans(1 & 3 anos) - Compromisso com uma quantidade de uso, longa carga de trabalho.
+* Spot Instances - Cargas de trabalho curtas, baratas, podem perder instâncias (menos confiáveis)
+* Dedicated Hosts -  Reserve um servidor físico inteiro, controle o posicionamento da instância.
+* Dedicated Instances - Nenhum outro cliente compartilhará seu hardware
+* Capacity reservations - Reservar capacidade numa AZ específica para qualquer duração
+
+### EC2 Reserved Instances
+ *   Até 72% de desconto em comparação com On-demand
+ *  Você reserva atributos de instância específicos (tipo de instância, região, locação, sistema operacional).
+ * Período de reserva - 1 ano (+desconto) ou 3 anos (+++desconto).
+ * Opções de pagamento - Sem adiantamento (+), adiantamento parcial (++), tudo adiantado (+++)
+ * Recomendada para o uso de banco de dados 
+ * Você pode comprar e vender no marktplace da Instância Reservada
+### Convertible Reserved Instance
+* Pode alterar o tipo de instância EC2, família de instâncias, sistema operacional, escopo e locação
+* Máximo de 66% de desconto
+
+### EC2 Savings Plans
+* Obtenha desconto com base no uso a longo prazo (até 72% - o mesmo que Rls).
+* Comprometa-se com um determinado tipo de uso (10$/hora por 1 ou 3 anos).
+* O uso além dos Planos de Economia EC2 é cobrado pelo preço sob demanda.
+* Bloqueado em uma família de instâncias específica e região AWS (por exemplo, M5 em us-east-1)
+* Flexível em todos os aspectos:
+	* Tamanho da instância (por exemplo, m5.xlarge, m5.2xlarge)
+	* SO (linux ou windows) 
+	* Locação (host, dedicado, padrão)
+
+### EC2 Sport Instances
+* Pode obter um desconto de até 90% em comparação com On-demand. 
+* Casos em que você pode "perder" a qualquer momento se seu preço máximo for menor que o preço à vista atual.
+* As instâncias MAIS econômicas na AWS
+* Útil para cargas de trabalho resilientes a falhas
+	* Batch jobs
+	* Data analysis
+	* Image processing 
+	* Qualquer trabalho distribuído
+	* Cargas de trabalho com horário flexível de início e término
+* **Não é adequado para trabalhos críticos ou bancos de dados
+
+### EC2 Dedicated Host 
+* servidor físico com capacidade de instância EC2 totalmente dedicado ao seu uso. 
+* Permite que você atenda aos requisitos de conformidade e use suas licenças de software existentes vinculadas ao servidor (por soquete, por núcleo, licenças de software pe ---VM)
+* Opções de compra: 
+	* Sob demanda - pague por segundo pelo Host Dedicado ativo 
+	* Reservado - 1 ou 3 anos (sem adiantamento, parcial, todos) 
+* A opção mais cara
+* Útil para software que possui modelo de licenciamento complicado (BYOL - Traga sua própria licença)
+* Ou para empresas que têm fortes necessidades regulatórias ou de conformidade
+### EC2 Dedicated Instances
+* As instâncias são executadas em hardware dedicado a você 
+* Pode compartilhar hardware com outras instâncias na mesma conta 
+* Nenhum controle sobre o posicionamento instantâneo (pode mover o hardware após Parar/Iniciar)
+### EC2 Capacity Reservations
+  
+* Reserve a capacidade de instâncias sob demanda em uma AZ específica por qualquer período.
+* Você sempre tem acesso à capacidade EC2 quando precisa 
+* Sem compromisso de tempo (criar/cancelar a qualquer momento), sem descontos de cobrança
+* Combine com Instâncias Reservadas Regionais e Planos de Poupança para se beneficiar de descontos de cobrança 
+* Você é cobrado à taxa sob demanda, independentemente de executar instâncias ou não 
+* Adequado para cargas de trabalho ininterruptas e de curto prazo que precisam estar em um AZ específico
+
+###  Qual opção de compra é a certa para mim?
+
+*  Sob demanda: vindo e ficando no resort quando quisermos, pagamos o preço integral. 
+* Reservado: Como planejar com antecedência e se planejamos ficar por muito tempo, podemos obter um bom desconto.
+* Saving plans: Pague um determinado valor por hora durante um determinado período e fique em qualquer tipo de quarto. 
+* Spot instance: o hotel permite que as pessoas licitem os quartos vazios e o licitante com lance mais alto fica com os quartos. Você pode ser expulso a qualquer momento. 
+* Dedicated dedicado: Reservamos um prédio inteiro do resort.
+* Reservas de capacidade: você reserva um quarto por um período com preço integral, mesmo que não fique nele
+![[Pasted image 20250813184604.png]]
+
+## EC2 Spot Instance Requests
+- **Economia**: até **90% mais barato** em comparação às instâncias On-Demand.
+- **Funcionamento**:
+    - Você define um **preço máximo** que está disposto a pagar.
+    - Enquanto o preço Spot < seu preço máximo → a instância é mantida.
+    - Se o preço Spot > seu preço máximo → a instância pode ser **interrompida ou encerrada** (com aviso de 2 minutos).
+- **Spot Block**:
+    - Permite "bloquear" a instância Spot por **1 a 6 horas sem interrupções**.
+    - Em casos muito raros, a AWS pode recuperar a instância.
+- **Casos de uso recomendados**:
+    - Jobs em **batch processing**
+    - **Big Data / Data Analysis**
+    - Cargas de trabalho **resilientes a falhas**
+- **Casos de uso não recomendados**:
+    - **Jobs críticos**
+    - **Bancos de dados**
+- **Tipos de solicitação**:
+    - **One-time**: instância é lançada apenas uma vez.
+    - **Persistent**: se a instância for encerrada, será relançada automaticamente.
+### Como funciona ?
+
+![[Pasted image 20250825111443.png]]
+Imagine o seguinte cenário aonde tenhamos definido o preço máximo em 0.04 centavos, nos períodos que o valor for superior a isso, a instancia será terminada ou interrompida 
+### Como terminar uma spot instances
+
+![[Pasted image 20250825112701.png]]
+
+## Spot Fleets
+- **Definição**:
+    - Um **Spot Fleet** é um **conjunto de instâncias Spot** + (opcional) **instâncias On-Demand**.
+    - O objetivo é **atingir uma capacidade alvo** respeitando restrições de preço.
+- **Como funciona**:
+    - Você define **pools de lançamento** → ex: tipo de instância (`m5.large`), SO, zona de disponibilidade.
+    - O Fleet pode escolher entre vários pools para provisionar.
+    - Ele **para de lançar instâncias** quando atinge:
+        - a **capacidade definida**, ou
+        - o **custo máximo permitido**.
+- **Estratégias de alocação de instâncias**:
+    1. **Lowest Price** → escolhe o pool com o **menor preço**.
+        - Ideal para workloads curtas e sensíveis a custo.
+    2. **Diversified** → distribui instâncias entre vários pools.
+        - Melhor para **alta disponibilidade** e cargas de longa duração.
+    3. **CapacityOptimized** → seleciona o pool com a **maior capacidade disponível**.
+        - Bom para garantir que o provisionamento não falhe.
+    4. **PriceCapacityOptimized (recomendado)** → escolhe os pools com **maior capacidade disponível** e, dentro deles, seleciona o **menor preço**.
+        - Melhor escolha para a **maioria das cargas de trabalho**.
+- **Benefício principal**:
+    - O Spot Fleet **gerencia automaticamente a busca pelas instâncias Spot mais baratas** sem que você precise monitorar preços manualmente.
