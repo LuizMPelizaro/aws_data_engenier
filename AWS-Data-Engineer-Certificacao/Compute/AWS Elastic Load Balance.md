@@ -310,3 +310,21 @@ Permitem que **um mesmo cliente** seja sempre direcionado para a **mesma instân
     - Utiliza **Server Name Indication (SNI)** para possibilitar esse suporte.
 - **Network Load Balancer (v2)**
     - Suporta **múltiplos listeners** com **múltiplos certificados SSL**.
+## Connection Draining
+- **Nomenclatura da funcionalidade**:
+    - **Connection Draining** – para **CLB**
+    - **Deregistration Delay** – para **ALB** & **NLB**
+- Define o **tempo para concluir as requisições em andamento ("in-flight requests")** enquanto a instância está sendo **deregistrada** ou está **com problemas de saúde (unhealthy)**.
+- Durante esse período, o load balancer **para de enviar novas requisições** para a instância em processo de deregistro.
+- O tempo pode variar de **1 a 3600 segundos** (**padrão: 300 segundos**).
+- Recomenda-se definir um **valor baixo** se suas requisições forem curtas.
+### Como funciona na prática
+1. Você marca a instância para **ser removida** do Load Balancer.
+2. O Load Balancer **para de enviar novas requisições** para ela.
+3. As requisições **já em andamento** continuam sendo processadas até:
+    - serem concluídas com sucesso ✅
+    - ou até o tempo limite configurado expirar ⏳ (ex.: 300 segundos).
+4. Depois disso, a instância é **deregistrada** do Load Balancer. 
+<p align="center">
+  <img src="Pasted image 20250827184658.png" >
+</p>
