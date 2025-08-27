@@ -46,9 +46,21 @@
               "icon": "lucide-file",
               "title": "Amazon Elastic Compute Cloud (Amazon EC2)"
             }
+          },
+          {
+            "id": "3a3aa02f1d897dc5",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.12"
+              },
+              "icon": "lucide-book-up",
+              "title": "Notas de Lançamento 1.9.12"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -206,8 +218,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c73062ca258cccac",
+  "active": "1e14a217a63c985f",
   "lastOpenFiles": [
+    "Pasted image 20250827142551.png",
+    "Pasted image 20250827142118.png",
+    "Pasted image 20250827121217.png",
+    "Pasted image 20250827114939.png",
+    "Pasted image 20250827112246.png",
+    "Pasted image 20250827112204.png",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
     "Pasted image 20250826173028.png",
     "Pasted image 20250826172855.png",
@@ -215,15 +233,10 @@
     "Pasted image 20250826154430.png",
     "Pasted image 20250826154228.png",
     "Pasted image 20250826153934.png",
-    "Pasted image 20250826151703.png",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Lambda.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Serverless Application Repository.md",
     "AWS-Data-Engineer-Certificacao/Compute/Escalabilidade e alta disponibilidade.md",
-    "Pasted image 20250826151302.png",
-    "Pasted image 20250826150931.png",
-    "Pasted image 20250826145157.png",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Batch.md",
-    "Pasted image 20250825163627.png",
     "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Registry (Amazon ECR).md",
     "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Kubernetes Service (Amazon EKS).md",
     "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Service (Amazon ECS).md",

@@ -176,3 +176,137 @@ Os **grupos-alvo** são essenciais para o funcionamento de um NLB.
 <p align="center">
   <img src="Pasted image 20250826173028.png" >
 </p>
+
+## Gateway Load Balancer (GWLB)
+* Permite **implantar, escalar e gerenciar** um conjunto de **appliances virtuais de rede de terceiros** dentro da AWS.
+- Exemplos: **firewalls**, sistemas de **detecção e prevenção de intrusão (IDS/IPS)**, **inspeção profunda de pacotes (DPI)**, **manipulação de payloads**, entre outros.
+- Opera na **Camada 3 (Rede)** do modelo OSI, trabalhando com **pacotes IP**.
+- Combina duas funções principais:
+    - **Gateway de Rede Transparente**: ponto único de entrada e saída para todo o tráfego.
+    - **Load Balancer**: distribui o tráfego entre os appliances virtuais.
+- Utiliza o protocolo **GENEVE** na **porta 6081** para encapsulamento.
+<p align="center">
+  <img src="Pasted image 20250827112204.png" >
+</p>
+---
+### Target Groups no GWLB
+- Os grupos-alvo podem ser:
+    - **Instâncias EC2** (registradas pelo **ID da instância**).
+    - **Endereços IP privados**.
+        - Isso permite registrar dispositivos virtuais em **data centers locais (on-premises)** de forma manual, usando seus IPs privados.
+<p align="center">
+  <img src="Pasted image 20250827112246.png" >
+</p>
+---
+### Observação Importante
+- O **Gateway Load Balancer** é um recurso avançado e pouco usado no dia a dia.
+- Na prática, é **difícil reproduzir um laboratório** com ele, mas para provas e arquitetura AWS é importante **memorizar o diagrama conceitual**:
+    - O GWLB atua como **ponto de entrada único** e **balanceador de carga** para appliances de segurança ou inspeção de tráfego.
+
+## Sticky Sessions (Session Affinity)
+
+Permitem que **um mesmo cliente** seja sempre direcionado para a **mesma instância** atrás de um Load Balancer.
+- Disponível em: **CLB, ALB e NLB**.
+- Implementado via **cookies**.
+- O cookie tem um **tempo de expiração configurável**.
+- Caso de uso: **preservar sessões de usuários** (ex: aplicações stateful que não armazenam sessão em cache compartilhado/DB).
+- Risco: pode gerar **desequilíbrio de carga** entre instâncias, já que alguns servidores podem receber mais tráfego.
+<p align="center">
+  <img src="Pasted image 20250827114939.png" >
+</p>
+---
+### 1. **Application-based Cookies**
+- Cookies controlados pelo **aplicativo ou pelo load balancer**.
+- Tipos:
+    - **Custom Cookie**
+        - Gerado pela **aplicação**.
+        - Pode ter atributos personalizados (ex: segurança, path, flags).
+        - Nome do cookie deve ser configurado **por grupo-alvo**.
+        - ⚠️ Não usar os nomes reservados: `AWSALB`, `AWSALBAPP`, `AWSALBTG`.
+    - **Application Cookie (AWS gerado)**
+        - Criado pelo **load balancer**.
+        - Nome fixo: `AWSALBAPP`.
+---
+### 2. **Duration-based Cookies**
+- Cookies **gerados pelo load balancer**.
+- Controlam stickiness com base em **tempo de duração**.
+- Nomes:
+    - `AWSALB` → **Application Load Balancer**
+    - `AWSELB` → **Classic Load Balancer**
+## Cross-zone Load Balancing
+### 1. **Com Cross-Zone Load Balancing ativado**
+- Cada **nó do Load Balancer** (em cada AZ) distribui tráfego para **todas as instâncias** registradas no Target Group, **independentemente da AZ**.
+- Resultado:
+    - O tráfego fica **uniformemente distribuído entre todas as instâncias**.
+    - Não importa se uma AZ tem 2 instâncias e a outra tem 8, cada instância vai receber a **mesma proporção de tráfego**.
+📌 **Exemplo (2 AZs, 10 instâncias no total: 2 em AZ1, 8 em AZ2):**
+- Cliente envia 50% → LB em AZ1, 50% → LB em AZ2.
+- Cada LB distribui igualmente entre todas as 10 instâncias.
+- Cada instância recebe **10% do tráfego total**.  
+    ✅ Ideal quando você quer **distribuição justa entre instâncias**.
+---
+### 2. **Sem Cross-Zone Load Balancing**
+- Cada **nó do Load Balancer** envia tráfego **apenas para as instâncias na sua própria AZ**.
+- Resultado:
+    - O tráfego fica **proporcional à quantidade de instâncias por AZ**.
+    - Se uma AZ tem poucas instâncias, elas ficam **sobrecarregadas**.
+📌 **Exemplo (mesma situação: 2 em AZ1, 8 em AZ2):**
+- Cliente envia 50% → LB em AZ1, 50% → LB em AZ2.
+- LB de AZ1 distribui entre **2 instâncias** → cada uma recebe **25% do tráfego total**.
+- LB de AZ2 distribui entre **8 instâncias** → cada uma recebe **6,25% do tráfego total**.  
+    ⚠️ Instâncias em AZ1 ficam **muito mais carregadas**.
+![[Pasted image 20250827121217.png]]
+---
+## Quando usar ou não Cross-Zone?
+- **Ativar Cross-Zone**:
+    - Quando o número de instâncias em cada AZ não é igual.
+    - Para garantir **equilíbrio real** entre instâncias.
+    - Normalmente **ativo por padrão no ALB e NLB** (mas pode ser configurado).
+- **Desativar Cross-Zone**:
+    - Quando você **quer controlar custos** (no NLB e GWLB, o tráfego cross-AZ pode gerar custo extra de **data transfer**).
+    - Quando deseja manter o tráfego **contido dentro de cada AZ** (para reduzir latência e dependência cross-AZ).
+## Cross-Zone Load Balancing por tipo de Load Balancer
+
+|Load Balancer|Status Padrão|Custos de tráfego entre AZs|Observações|
+|---|---|---|---|
+|**Application Load Balancer (ALB)**|✅ **Ativado por padrão** (pode ser desativado por Target Group)|🚫 **Sem custo adicional** para tráfego inter-AZ|Mais usado em apps HTTP/HTTPS. Recomendado manter ativado.|
+|**Network Load Balancer (NLB)**|❌ **Desativado por padrão**|💲 **Cobra por tráfego inter-AZ** quando ativado|Ideal para tráfego TCP/UDP de alta performance. Decisão de custo pode pesar.|
+|**Gateway Load Balancer (GWLB)**|❌ **Desativado por padrão**|💲 **Cobra por tráfego inter-AZ** quando ativado|Usado para appliances virtuais (firewalls, IDS/IPS, etc).|
+|**Classic Load Balancer (CLB)**|❌ **Desativado por padrão**|🚫 **Sem custo adicional** quando ativado|Serviço legado, geralmente substituído por ALB ou NLB.|
+## SSL/TLS - Basics
+- Um **certificado SSL/TLS** permite que o tráfego entre seus clientes e seu load balancer seja **criptografado em trânsito** (in-flight encryption).
+- **SSL (Secure Sockets Layer)** é o protocolo mais antigo originalmente usado para criptografar conexões.
+- **TLS (Transport Layer Security)** é a versão mais nova e segura que substituiu o SSL.
+- Hoje em dia, os certificados TLS são os mais utilizados, mas ainda é comum que as pessoas se refiram a eles como “certificados SSL”.
+- Certificados públicos SSL/TLS são emitidos por **Autoridades Certificadoras (CA)**, como **Comodo, Symantec, GoDaddy, GlobalSign, DigiCert, Let’s Encrypt**, entre outras.
+- Certificados SSL/TLS possuem uma **data de expiração** e precisam ser **renovados** periodicamente.
+## Load Balancer - Certificados SSL
+<p align="center">
+  <img src="Pasted image 20250827142118.png" >
+</p>
+
+- O load balancer utiliza um certificado **X.509** (certificado de servidor SSL/TLS).
+- É possível **fazer upload dos seus próprios certificados**, como alternativa.
+- **Listener HTTPS**:
+    - É necessário especificar um **certificado padrão**.
+    - É possível adicionar uma **lista opcional de certificados** para suportar múltiplos domínios.
+    - Os clientes podem usar **SNI (Server Name Indication)** para indicar o **hostname** que desejam acessar.
+### Server Name Indication (SNI)
+- O **SNI** resolve o problema de carregar múltiplos certificados SSL em um único servidor web (para atender vários sites).
+- É um protocolo mais recente e exige que o **cliente indique o hostname** do servidor de destino já no **handshake inicial do SSL/TLS**.
+- O servidor, então, localiza o **certificado correto** correspondente ao hostname informado ou retorna o **certificado padrão**.
+<p align="center">
+  <img src="Pasted image 20250827142551.png" >
+</p>
+#### Nota:
+- Funciona apenas para **ALB** e **NLB** (geração mais nova, também suportado pelo **CloudFront**).
+- Não funciona para **CLB** (geração mais antiga).
+## Elastic Load Balancers - Certificados SSL
+- **Classic Load Balancer (v1)**
+    - Suporta apenas **um certificado SSL**.
+    - Para múltiplos hostnames com múltiplos certificados SSL, é necessário utilizar **vários CLBs**.
+- **Application Load Balancer (v2)**
+    - Suporta **múltiplos listeners** com **múltiplos certificados SSL**.
+    - Utiliza **Server Name Indication (SNI)** para possibilitar esse suporte.
+- **Network Load Balancer (v2)**
+    - Suporta **múltiplos listeners** com **múltiplos certificados SSL**.
