@@ -328,3 +328,112 @@ Permitem que **um mesmo cliente** seja sempre direcionado para a **mesma instân
 <p align="center">
   <img src="Pasted image 20250827184658.png" >
 </p>
+
+## O que é um **Auto Scaling Group (ASG)**
+
+- Na prática, a carga dos seus sites e aplicações pode variar ao longo do tempo.
+- Na nuvem, é possível **criar e remover servidores rapidamente**.
+- O objetivo de um **Auto Scaling Group (ASG)** é:
+    - **Scale Out** → adicionar instâncias EC2 quando a carga aumenta.
+    - **Scale In** → remover instâncias EC2 quando a carga diminui.
+    - Garantir que sempre exista um **mínimo e máximo** de instâncias EC2 rodando.
+    - **Registrar automaticamente** novas instâncias em um Load Balancer.
+    - **Recriar instâncias EC2** caso alguma seja finalizada ou fique **unhealthy**.
+- O uso do ASG em si é **gratuito** – você paga apenas pelas instâncias EC2 em execução.
+### Exemplo de ASG
+<p align="center">
+  <img src="Pasted image 20250828112837.png" >
+</p>
+## Como o ASG funciona junto com o Load Balancer
+1. **Distribuição de Tráfego**
+    - Quando você tem um ASG com, por exemplo, **4 instâncias EC2 ativas**, todas são automaticamente **registradas no Load Balancer (ELB/ALB/NLB)**.
+    - O ELB, então, **distribui o tráfego** entre elas, garantindo que os usuários tenham acesso ao site de forma balanceada.
+2. **Health Checks (Verificações de Saúde)**
+    - O ELB realiza **health checks** em cada instância registrada.
+    - Se uma instância **ficar insalubre (unhealthy)**, o ELB **para de enviar tráfego para ela**.
+    - Esse status também é **informado ao ASG**.
+3. **Recuperação Automática**
+    - Quando o ASG percebe que uma instância está **unhealthy**, ele pode **encerrar a instância** defeituosa.
+    - Em seguida, cria uma **nova instância saudável** automaticamente, substituindo a antiga.
+4. **Escalabilidade Dinâmica**
+    - Se a demanda aumentar, o **ASG cria novas instâncias**.
+    - Essas novas instâncias são **automaticamente registradas no ELB**, que começa a direcionar tráfego para elas.
+    - Se a demanda cair, o ASG pode **remover instâncias** para economizar custo, e o ELB ajusta o tráfego para as instâncias restantes.
+<p align="center">
+  <img src="Pasted image 20250828113703.png" >
+</p>
+---
+## Atributos de um **Auto Scaling Group**
+- **Launch Template** (os antigos _Launch Configurations_ estão obsoletos):
+    - AMI + Tipo de Instância
+    - User Data (scripts de inicialização)
+    - Volumes EBS
+    - Security Groups
+    - Par de Chaves SSH
+    - IAM Roles para as instâncias EC2
+    - Informações de Rede e Subnets
+    - Informações do Load Balancer
+- **Capacidades do Grupo**:
+    - **Min Size** (mínimo de instâncias)
+    - **Max Size** (máximo de instâncias)
+    - **Initial Capacity** (quantidade inicial)
+- **Políticas de Escalonamento**
+---
+## Auto Scaling com **CloudWatch Alarms & Scaling**
+
+- É possível escalar um ASG com base em **CloudWatch Alarms**.
+- Um **alarm** monitora uma métrica (ex.: CPU média ou uma métrica customizada).
+- Métricas como CPU Média são calculadas **considerando todas as instâncias do ASG**.
+- Com base no alarme:
+    - Criamos **Scale-Out Policies** (aumentar o número de instâncias).
+    - Criamos **Scale-In Policies** (reduzir o número de instâncias).
+<p align="center">
+  <img src="Pasted image 20250828112255.png" >
+</p>
+## Auto Scaling Groups - **Políticas de Escalonamento**
+### 🔹 **Dynamic Scaling (Escalonamento Dinâmico)**
+- **Target Tracking Scaling**
+    - Mais simples de configurar.
+    - Você define uma **métrica alvo** e o ASG ajusta automaticamente.
+    - Exemplo: “Quero que a **CPU média do ASG fique em torno de 40%**.”
+- **Simple / Step Scaling (Escalonamento Simples ou em Etapas)**
+    - Baseado em **CloudWatch Alarms**.
+    - Exemplo:
+        - Se **CPU > 70%**, **adicionar 2 instâncias**.
+        - Se **CPU < 30%**, **remover 1 instância**.
+---
+### 🔹 **Scheduled Scaling (Escalonamento Agendado)**
+- Permite **antecipar o escalonamento** com base em **padrões de uso conhecidos**.
+- Exemplo: aumentar a capacidade mínima para **10 instâncias às 17h de sexta-feira** (preparando para maior tráfego).
+---
+### 🔹 **Predictive Scaling (Escalonamento Preditivo)**
+- O sistema **prevê continuamente a carga** com base em histórico e tendências.
+- Agenda automaticamente o escalonamento **antes da demanda real acontecer**.
+<p align="center">
+  <img src="Pasted image 20250828122250.png" >
+</p>
+---
+## Boas métricas para escalar um ASG
+- **CPU Utilization**
+    - Percentual médio de utilização da CPU em todas as instâncias.
+- **RequestCountPerTarget**
+    - Garante que o **número de requisições por instância EC2** permaneça estável.
+- **Average Network In / Out**
+    - Útil quando sua aplicação é **limitada por rede** (network bound).
+- **Custom Metrics**
+    - Qualquer métrica personalizada que você enviar para o **CloudWatch**.
+    - Exemplo: tempo de resposta da aplicação, número de mensagens em uma fila, tamanho de um buffer etc.
+<p align="center">
+  <img src="Pasted image 20250828122737.png" >
+</p>
+---
+## Cooldown Period no Auto Scaling Group
+- Após uma atividade de escalonamento (scale-in ou scale-out), o ASG entra em um **período de cooldown** (_tempo de espera_).
+- Por padrão, o cooldown é de **300 segundos (5 minutos)**.
+- Durante esse período, o ASG **não cria nem encerra novas instâncias**, permitindo que as **métricas se estabilizem** antes de tomar novas decisões de escalonamento.
+### 💡 Boa prática:
+- Utilize uma **AMI já configurada (ready-to-use AMI)** para reduzir o tempo de inicialização e configuração da instância.
+- Isso faz com que as novas instâncias estejam **prontas para atender requisições mais rapidamente**, o que ajuda a **diminuir a necessidade de cooldown longo**.
+<p align="center">
+  <img src="Pasted image 20250828123112.png" >
+</p>
