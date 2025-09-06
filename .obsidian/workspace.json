@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
+                "file": "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AWS Elastic Load Balance"
+              "title": "Amazon DynamoDB"
             }
           },
           {
@@ -45,18 +45,6 @@
               },
               "icon": "lucide-file",
               "title": "Amazon Elastic Compute Cloud (Amazon EC2)"
-            }
-          },
-          {
-            "id": "3a3aa02f1d897dc5",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.9.12"
-              },
-              "icon": "lucide-book-up",
-              "title": "Notas de Lançamento 1.9.12"
             }
           }
         ],
@@ -117,7 +105,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "82984997119a3f03",
@@ -220,19 +209,21 @@
   },
   "active": "1e14a217a63c985f",
   "lastOpenFiles": [
-    "Pasted image 20250828123112.png",
-    "Pasted image 20250828122737.png",
-    "Pasted image 20250828122250.png",
+    "Pasted image 20250906135522.png",
+    "Pasted image 20250906134935.png",
+    "Pasted image 20250906134917.png",
+    "Pasted image 20250906134545.png",
+    "Pasted image 20250906133345.png",
+    "Pasted image 20250906133215.png",
+    "Pasted image 20250906122044.png",
+    "Pasted image 20250906122029.png",
+    "Pasted image 20250906115133.png",
+    "Pasted image 20250906115030.png",
+    "Pasted image 20250902180942.png",
     "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
+    "AWS-Data-Engineer-Certificacao/Temas/App Integration.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
-    "Pasted image 20250828113703.png",
-    "Pasted image 20250828112837.png",
-    "Pasted image 20250828112255.png",
-    "Pasted image 20250827184658.png",
-    "Pasted image 20250827142551.png",
-    "Pasted image 20250827142118.png",
-    "Pasted image 20250827121217.png",
-    "Pasted image 20250827114939.png",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Lambda.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Serverless Application Repository.md",
     "AWS-Data-Engineer-Certificacao/Compute/Escalabilidade e alta disponibilidade.md",
@@ -254,8 +245,6 @@
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Warehouse vs Data Lake and Data lakehouse.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Warehouse.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data validation and profiling.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Sources.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Skew mechanisms.md",
     "AWS-Data-Engineer-Certificacao/Temas/Sem título",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals",
     "Security-Identity-And-Compliance",

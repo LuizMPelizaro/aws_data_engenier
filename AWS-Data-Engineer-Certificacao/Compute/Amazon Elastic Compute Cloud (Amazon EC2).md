@@ -50,14 +50,12 @@ echo "<h1> Hello World from $(hostname -f)</h1>" >/var/www/html/index.html
   <img src="Pasted image 20250809132725.png" >
 </p>
 A t2.micro é parte do free tier
-
 ## 1- Hands on: Rodar uma instancia EC2 Linux 
 * Lançaremos um servidor (EC2) usando o AWS Console
 * Teremos uma primeira abordagem de alto nível para os vários parâmetros
 * Veremos que nosso servidor web é iniciado usando EC2 user data
 * Aprenderemos a ligar, desligar e terminar uma instancia
 O código usado esta logo acima.
-
 ## EC2 Instance types
 * Existem diferentes tipos de [instancias](https://aws.amazon.com/pt/ec2/instance-types/) EC2 que são otimizadas para tipos diferentes de caso de uso.
 * A AWS segue uma convenção de nomes para as instancias.
@@ -72,7 +70,6 @@ O código usado esta logo acima.
 - Servidores web
 - Repositórios de código
 - Aplicações de negócios de uso geral
-
 > 💡 **Exemplo no curso**: `t2.micro` (Free Tier) – 1 vCPU, 1 GB RAM
 
 ---
