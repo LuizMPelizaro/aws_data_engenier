@@ -20,31 +20,31 @@
             }
           },
           {
-            "id": "1e14a217a63c985f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Amazon DynamoDB"
-            }
-          },
-          {
             "id": "c73062ca258cccac",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
+                "file": "AWS-Data-Engineer-Certificacao/Database/RedShift.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Amazon Elastic Compute Cloud (Amazon EC2)"
+              "title": "RedShift"
+            }
+          },
+          {
+            "id": "26c1fe9ec53c5bf8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/OLAP VS OLTP.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "OLAP VS OLTP"
             }
           }
         ],
@@ -105,8 +105,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 369.5
   },
   "right": {
     "id": "82984997119a3f03",
@@ -207,21 +206,32 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1e14a217a63c985f",
+  "active": "c73062ca258cccac",
   "lastOpenFiles": [
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/OLAP VS OLTP.md",
+    "AWS-Data-Engineer-Certificacao/Database/RedShift.md",
+    "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
+    "Sem título 1.base",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Sources.md",
+    "Sem título.base",
+    "Pasted image 20250910185701.png",
+    "Pasted image 20250910184622.png",
+    "Pasted image 20250910184614.png",
+    "Pasted image 20250910184559.png",
+    "Pasted image 20250910183954.png",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon Timestream.md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon Neptune.md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon Keyspaces (for Apache Cassandra).md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon MemoryDB for Redis.md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon DocumentDB (with MongoDB compatibility).md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon Relational Database Service (Amazon RDS).md",
+    "AWS-Data-Engineer-Certificacao/Database/RDS.md",
+    "Pasted image 20250909183516.png",
+    "Pasted image 20250909183335.png",
+    "Pasted image 20250909174047.png",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
     "Pasted image 20250906135522.png",
     "Pasted image 20250906134935.png",
-    "Pasted image 20250906134917.png",
-    "Pasted image 20250906134545.png",
-    "Pasted image 20250906133345.png",
-    "Pasted image 20250906133215.png",
-    "Pasted image 20250906122044.png",
-    "Pasted image 20250906122029.png",
-    "Pasted image 20250906115133.png",
-    "Pasted image 20250906115030.png",
-    "Pasted image 20250902180942.png",
-    "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
-    "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
     "AWS-Data-Engineer-Certificacao/Temas/App Integration.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Lambda.md",
@@ -236,15 +246,6 @@
     "AWS KMS.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/SQL.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Type of data.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Técnicas de data sampling.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Lake.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Properties of data.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/GIT.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/ETL e ELT.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Database performance optimization.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Warehouse vs Data Lake and Data lakehouse.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Warehouse.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data validation and profiling.md",
     "AWS-Data-Engineer-Certificacao/Temas/Sem título",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals",
     "Security-Identity-And-Compliance",
@@ -253,8 +254,6 @@
     "create_path.py",
     "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Migration-And-Transfer",
     "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Storage",
-    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Security,-Identity,-And-Compliance",
-    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Frontend-Web",
-    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Machine-Learning"
+    "AWS-Data-Engineer/AWS-Data-Engineer-Certificacao/Security,-Identity,-And-Compliance"
   ]
 }
