@@ -25,26 +25,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Database/RedShift.md",
+                "file": "AWS-Data-Engineer-Certificacao/Database/Amazon DocumentDB (with MongoDB compatibility).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "RedShift"
+              "title": "Amazon DocumentDB (with MongoDB compatibility)"
             }
           },
           {
-            "id": "26c1fe9ec53c5bf8",
+            "id": "01d35333f48444c8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/OLAP VS OLTP.md",
+                "file": "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OLAP VS OLTP"
+              "title": "Amazon DynamoDB"
             }
           }
         ],
@@ -208,11 +208,17 @@
   },
   "active": "c73062ca258cccac",
   "lastOpenFiles": [
+    "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon DocumentDB (with MongoDB compatibility).md",
+    "AWS-Data-Engineer-Certificacao/Database/Amazon RedShift.md",
+    "Pasted image 20250920115442.png",
+    "Pasted image 20250920113318.png",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Sources.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/OLAP VS OLTP.md",
-    "AWS-Data-Engineer-Certificacao/Database/RedShift.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/ETL e ELT.md",
+    "Pasted image 20250920110413.png",
     "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
     "Sem título 1.base",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Sources.md",
     "Sem título.base",
     "Pasted image 20250910185701.png",
     "Pasted image 20250910184622.png",
@@ -223,15 +229,10 @@
     "AWS-Data-Engineer-Certificacao/Database/Amazon Neptune.md",
     "AWS-Data-Engineer-Certificacao/Database/Amazon Keyspaces (for Apache Cassandra).md",
     "AWS-Data-Engineer-Certificacao/Database/Amazon MemoryDB for Redis.md",
-    "AWS-Data-Engineer-Certificacao/Database/Amazon DocumentDB (with MongoDB compatibility).md",
     "AWS-Data-Engineer-Certificacao/Database/Amazon Relational Database Service (Amazon RDS).md",
     "AWS-Data-Engineer-Certificacao/Database/RDS.md",
     "Pasted image 20250909183516.png",
     "Pasted image 20250909183335.png",
-    "Pasted image 20250909174047.png",
-    "AWS-Data-Engineer-Certificacao/Database/Amazon DynamoDB.md",
-    "Pasted image 20250906135522.png",
-    "Pasted image 20250906134935.png",
     "AWS-Data-Engineer-Certificacao/Temas/App Integration.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
     "AWS-Data-Engineer-Certificacao/Compute/AWS Lambda.md",
@@ -244,8 +245,6 @@
     "AWS-Data-Engineer-Certificacao/Storage/Amazon Simple Storage Service (Amazon S3).md",
     "AWS-Data-Engineer-Certificacao/Security-Identity-And-Compliance/AWS Key Management Service (AWS KMS).md",
     "AWS KMS.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/SQL.md",
-    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Type of data.md",
     "AWS-Data-Engineer-Certificacao/Temas/Sem título",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals",
     "Security-Identity-And-Compliance",

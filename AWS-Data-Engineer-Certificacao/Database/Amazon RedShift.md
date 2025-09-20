@@ -377,8 +377,48 @@ Ele lida com dois pontos principais:
     - Suporta entre contas, entre regiões.
     - Exige RA3.
 ---
-## ML 
+## Amazon Redshift ML (Machine Learning)
 ![[Pasted image 20250910185701.png]]
+### ✅ O que é?
+- Introduzido em **2021**.
+- Permite **criar, treinar e usar modelos de ML** diretamente a partir de consultas **SQL** no Redshift.
+- Usa **Amazon SageMaker Autopilot** por trás dos panos.
+---
+### 🔄 Como funciona
+1. **Exportação de dados** → Redshift exporta dados de treinamento para o **Amazon S3**.
+2. **Treinamento automático** → SageMaker Autopilot:
+    - Pré-processa os dados.
+    - Escolhe o melhor algoritmo.
+    - Ajusta hiperparâmetros.
+3. **Implantação** → O modelo é registrado como uma **função SQL** dentro do Redshift.
+4. **Inferência** → Você pode chamar previsões em tempo real via SQL (`SELECT predict_model(...)`).
+---
+### ⚙️ Por baixo do capô
+- Redshift apenas **orquestra**.
+- O **SageMaker** faz o treino pesado.
+- O **S3** é usado para armazenar dados de treino, artefatos e trocas entre Redshift ↔ SageMaker.
+
+---
+### 💰 Custos
+- **Treinamento e inferência** → cobrados no **Amazon SageMaker**.
+- **Armazenamento** → cobrado no **Amazon S3**.
+- **Uso do Redshift ML** → incluso no Redshift, mas consome recursos do cluster.
+---
+### 📌 Pontos importantes para lembrar
+- Criar modelo com:
+```SQL
+CREATE MODEL my_model FROM (SELECT col1, col2, label FROM my_table) 
+TARGET label 
+FUNCTION predict_my_model 
+IAM_ROLE 'arn:aws:iam::123456789012:role/MyRedshiftRole';
+```
+    
+- A função `predict_my_model` fica disponível como UDF.
+- **É assunto periférico**: pode cair em **exames de Data Analytics**, mas o aprofundamento está no exame de **Machine Learning Specialty**.
+---
+
+👉 Resumindo em uma frase:  
+**Redshift ML permite treinar e usar modelos de ML via SQL no Redshift, usando SageMaker Autopilot e S3 nos bastidores.**
 
 ---
 ## **Antipadrões do Redshift**
@@ -394,7 +434,8 @@ Situações em que **não usar Redshift**:
 - **Controle de acesso via SQL**:
 
   ```SQL
- GRANT SELECT ON table foo TO bob; REVOKE INSERT ON table bar FROM alice;
+ GRANT SELECT ON table foo TO bob;
+ REVOKE INSERT ON table bar FROM alice;
  ```
 - Integração com IAM, KMS, VPC, Enhanced VPC Routing.
 ---
@@ -414,3 +455,390 @@ Amazon Redshift hoje não é só um **DW em cluster** — ele virou uma **plataf
 - Integração total com o ecossistema AWS (S3, DynamoDB, Aurora, Kinesis, EMR, SageMaker).
 - Recursos modernos: RA3 nodes, Spectrum, Lake Export, Cross-Region Sharing.
 - Ferramentas de gestão de workload (WLM, SQA, Concurrency Scaling).
+- ---
+## Amazon Redshift Serverless
+### O que é
+- Novo modo de execução do **Amazon Redshift**.
+- Não há cluster provisionado manualmente.
+- O Redshift **provisiona e escala automaticamente** recursos para a carga de trabalho.
+- Usa **Machine Learning interno** para prever e otimizar recursos em workloads variáveis.
+- Ideal para **cargas intermitentes, testes, ambientes de dev ou análises ad hoc**.
+---
+### Provisionamento e Configuração
+- Só precisa definir:
+    - **Nome do banco de dados**
+    - **Credenciais do admin**
+    - **VPC**
+    - **Configuração de criptografia** (padrão: chave **KMS da AWS**)
+    - **Função IAM** com permissões `redshift-serverless:*`
+    - **Logs de auditoria opcionais**
+- Após configuração, você recebe:
+    - **Endpoint sem servidor** (para JDBC/ODBC)
+    - **Editor de consultas no console**
+- **Snapshots e pontos de recuperação** ainda estão disponíveis.
+---
+### Custos e Dimensionamento
+- Capacidade medida em **Redshift Processing Units (RPU’s)**.
+- **Faturamento**:
+    - **Por segundo** de uso → convertido em **RPU-hours**.
+    - - **Armazenamento** (por GB/mês).    
+- **Configuração de capacidade**:
+    - **Base RPU’s**: 32 a 512 (padrão AUTO).
+    - **Max RPU’s**: define limite superior → controla custos.
+- Caso típico:
+    - Baixar RPU para economizar 💵.
+    - Aumentar RPU para mais throughput ⚡.
+---
+### Limitações do Serverless
+- Não suporta:
+    - **Parameter Groups**
+    - **Workload Management (WLM)**
+    - **Parcerias AWS Partner Connect**
+    - **Janelas de manutenção/version tracks** (atualizações podem interromper conexões sem aviso)
+    - **Endpoints públicos** → acesso **apenas via VPC**
+---
+### 📊 Monitoramento
+- **Views internas**:
+    - `SYS_QUERY_HISTORY` → histórico de queries
+    - `SYS_LOAD_HISTORY` → histórico de cargas
+    - `SYS_SERVERLESS_USAGE` → consumo de RPUs
+- **CloudWatch Logs**:
+    - Conexões e usuários (ativados por padrão)
+    - Logs de atividade de usuário (opcionais)
+- **CloudWatch Metrics**:
+    - `QueriesCompletedPerSecond`
+    - `QueryDuration`
+    - `QueriesRunning`
+    - Dimensões: `DatabaseName`, `Latency` (short/medium/long), `QueryType`, `Stage`
+---
+### Em resumo
+**Redshift Serverless** = Redshift com cobrança por **RPUs em uso** + **escala automática de recursos**, sem precisar gerenciar clusters.  
+
+**Mais simples, mais flexível, mas com algumas limitações importantes (WLM, manutenção, endpoints públicos).**
+
+---
+## Amazon Redshift – Materialized Views (MV)
+### ✅ O que são
+
+- **Views normais** → armazenam apenas a _definição da query_, e cada execução roda de novo sobre as tabelas base.
+- **Materialized Views (MV)** → armazenam o **resultado pré-computado da query**, como se fosse uma tabela estática.
+- Grande benefício: **desempenho** em consultas complexas e recorrentes.
+###   Benefícios
+- Consultas **mais rápidas**, pois acessam resultados prontos.
+- **Evita recomputar** joins pesados, agregações ou cálculos repetitivos.
+- Excelente para **dashboards recorrentes** (ex: Amazon QuickSight).
+- Pode ser **empilhada**: uma MV pode ser construída sobre outra MV.
+### Desafios
+- **Problema de sincronização**:
+    - Como os dados são armazenados, podem ficar **desatualizados** em relação às tabelas base.
+- Requer **refresh** explícito ou automático.
+### Como usar
+Para criar 
+``` SQL
+CREATE MATERIALIZED VIEW mv_example AS
+SELECT user_id, COUNT(*) AS orders
+FROM orders
+GROUP BY user_id;
+```
+Consultar
+```SQL
+SELECT * FROM mv_example;
+```
+Atualizar
+```SQL
+REFRESH MATERIALIZED VIEW mv_example;
+```
+### Exemplos de uso
+- Dashboards que precisam de **respostas rápidas**.
+- Relatórios com **JOINs ou agregações complexas**.
+- Workloads de BI que repetem sempre as mesmas queries.
+### Pontos-chave para exame
+
+- **MV ≠ View normal** → armazena resultado, não só query.
+- **Otimização de desempenho** em queries recorrentes.
+- Precisa de **refresh** (manual ou automático).
+- Pode ser construída **sobre outras MVs**.
+---
+## O que é o **Redshift Data Sharing**
+É um recurso que permite compartilhar **dados em tempo real, de forma segura, somente leitura**, entre clusters do Redshift (produtor → consumidor), sem precisar **copiar nem mover os dados**.
+Isso significa que:
+- Os dados continuam centralizados no **cluster produtor**.
+- Os **clusters consumidores** acessam uma visão transacional consistente (live, não snapshots).
+- O desempenho do cluster produtor **não é afetado** pela carga do cluster consumidor.
+---
+###  Por que usar?
+1. **Isolamento de carga de trabalho**
+    - Evita que consultas pesadas de times/departamentos diferentes degradem o cluster principal.
+    - O consumidor roda em outro cluster, independente.
+2. **Colaboração entre times**
+    - Times diferentes podem acessar os mesmos dados em tempo real.
+    - Exemplo: marketing e finanças acessando os dados sem duplicação.
+3. **Ambientes Dev/Test/Prod**
+    - Usar os mesmos dados produtivos em dev/test, sem risco de afetar o ambiente produtivo.
+4. **Monetização de dados**
+    - Compartilhar dados com parceiros via **AWS Data Exchange**.
+    - Exemplo: vender datasets de mercado financeiro, geográficos, saúde etc.
+---
+### O que pode ser compartilhado?
+- Bancos de dados inteiros
+- Schemas
+- Tabelas
+- Views
+- UDFs (funções definidas pelo usuário)
+Com controle refinado de acesso → o produtor define exatamente o que é visível.
+---
+### Como funciona na prática
+- **Produtor**: cluster que contém os dados originais.
+- **Consumidor**: cluster que recebe acesso de leitura aos dados.
+- Os dados são transacionalmente consistentes e sempre “ao vivo”.
+- Ambos os clusters precisam:
+    - Usar **RA3 nodes**
+    - Estar **criptografados**
+- **Cross-region sharing** é possível, mas gera cobrança de transferência de dados.
+
+---
+### Tipos de Data Sharing
+1. **Standard** → compartilhamento direto entre clusters Redshift.
+2. **AWS Data Exchange** → para compartilhar com clientes/mercado.
+3. **Lake Formation-managed** → controle centralizado de segurança e governança de acesso.
+---
+✅ Em resumo:  
+O **Redshift Data Sharing** elimina a necessidade de duplicar dados entre clusters, permitindo **isolamento de workloads**, **colaboração segura** e até **monetização**. Ele é especialmente útil quando múltiplos times/ambientes precisam de acesso aos mesmos dados, mas sem comprometer o desempenho do cluster principal.
+
+---
+## Ponto-chave de prova / prática
+- **Serverless** → paga por uso (RPU), escala automático, mas sem WLM.
+- **Materialized Views** → aceleram consultas pesadas (repetitivas).
+- **Data Sharing** → read-only, em tempo real, RA3 obrigatório, ótimo p/ isolamento de workload.
+- ---
+## O que são Lambda UDFs no Redshift?
+- **UDFs (User Defined Functions)** → permitem criar funções personalizadas dentro do banco.
+- **Lambda UDFs** → permitem que essas funções sejam implementadas como **funções AWS Lambda**, escritas em qualquer linguagem suportada (Python, Node.js, Java etc.).
+Ou seja, você consegue chamar **código externo** diretamente de uma consulta SQL no Redshift.
+---
+### Por que isso é útil?
+- Expandir o SQL para além de operações nativas.
+- Integrar Redshift com **outros serviços** (IA, APIs externas, serviços internos).
+- Reutilizar lógica já implementada em Lambdas.
+Exemplos:
+- Normalização de dados com ML em Python.
+- Validação de endereços com API externa.
+- Conversão de formatos especiais (ex: XML → JSON).
+<p align="center">
+  <img src="Pasted image 20250920110413.png" >
+</p>
+- ---
+### Como funciona
+1. **Registrar a função** no Redshift via `CREATE EXTERNAL FUNCTION`.
+2. Conceder permissão com `LANGUAGE EXFUNC`.
+3. Associar a função a uma Lambda já existente.
+📌 Exemplo simplificado:
+```SQL
+CREATE EXTERNAL FUNCTION exfunc_sum(a int, b int)
+RETURNS int
+VOLATILE
+LAMBDA 'my-lambda-function-name'
+IAM_ROLE 'arn:aws:iam::123456789012:role/MyRedshiftLambdaRole';
+```
+Uso
+```SQL
+SELECT exfunc_sum(10, 5); -- retorna 15
+```
+---
+### Permissões
+- É necessário uma **IAM Role** associada ao Redshift que permita `lambda:InvokeFunction`.
+- Essa role é passada no `CREATE EXTERNAL FUNCTION`.
+- Pode chamar **Lambdas em outras contas**, usando **role chaining**.
+- ---
+### Como o Redshift envia os dados ao Lambda
+- A comunicação é feita via **JSON payload**.
+- O Lambda recebe:
+    - `requestId`, `cluster`, `dbUser`, `externalFunction`, `queryId`
+    - Argumentos para N registros em batch (ex: 4 linhas da consulta).
+    - 
+Exemplo payload recebido pelo Lambda:
+```JSON
+{
+  "requestId": "1234",
+  "cluster": "redshift-cluster-1",
+  "dbUser": "admin",
+  "externalFunction": "exfunc_sum",
+  "queryId": "5678",
+  "numRecords": 4,
+  "arguments": [
+    [3, 5],
+    [7, 2],
+    [10, 10],
+    [6, 8]
+  ]
+}
+```
+Resposta
+```JSON
+{
+  "success": true,
+  "results": [8, 9, 20, 14]
+}
+```
+---
+### Benefícios
+✅ Pode usar **qualquer linguagem** suportada pelo Lambda.  
+✅ Pode chamar **outros serviços AWS ou externos**.  
+✅ Pode aplicar **lógica complexa** em consultas SQL.
+### Limitações
+⚠️ Depende da latência da chamada Lambda → cuidado com uso em queries críticas.  
+⚠️ Custo de invocações Lambda pode escalar se abusar.  
+⚠️ Deve-se controlar segurança (permissões IAM).
+
+---
+## Redshift Federated Queries
+Permite que o **Amazon Redshift** consulte dados **externos** em:
+- **Amazon RDS (PostgreSQL e MySQL)**
+- **Amazon Aurora (PostgreSQL e MySQL)**
+- **Lagos de dados no S3 via Redshift Spectrum**
+<p align="center">
+  <img src="Pasted image 20250920113318.png" >
+</p>
+Isso evita ETL e movimentação desnecessária de dados, permitindo **consultar dados em tempo real diretamente na fonte**.
+
+---
+### Como funciona?
+1. **Conectividade**
+    - Redshift e RDS/Aurora precisam estar na mesma **VPC** ou com **VPC Peering**.
+    - Não pode haver sobreposição de IPs.
+2. **Autenticação**
+    - Credenciais armazenadas no **AWS Secrets Manager**.
+    - IAM Role do Redshift precisa ter permissão para acessar esses segredos.
+3. **Configuração**
+    - Criar um **External Schema** no Redshift:
+```SQL
+CREATE EXTERNAL SCHEMA apg
+FROM POSTGRES
+DATABASE 'database-1'
+SCHEMA 'myschema'
+URI 'aurora-cluster-endpoint'
+IAM_ROLE 'arn:aws:iam::123456789:role/RedshiftRole'
+SECRET_ARN 'arn:aws:secretsmanager:...';
+```
+Consultas podem então referenciar tabelas externas:
+```SQL
+SELECT COUNT(*) FROM apg.lineitem;
+```
+**Execução**
+- Parte da computação é empurrada para o RDS/Aurora.
+- Redshift só traz os resultados necessários.
+---
+## Restrições
+- **Somente leitura** sobre fontes externas.
+- **Custos extras** podem ocorrer no RDS/Aurora pelo aumento de tráfego e carga.
+- **Unidirecional** → Redshift acessa RDS/Aurora, mas não o contrário.
+---
+## Para lembrar no exame
+- Federated Queries **≠ ETL** → Consulta em tempo real, sem copiar dados.
+- Necessário **Secrets Manager + IAM Role**.
+- Visualização útil: `SVV_EXTERNAL_SCHEMAS` mostra os schemas externos configurados.
+- Funciona para **Postgres/MySQL (RDS e Aurora)** + **S3**.
+---
+## Tipos de tabelas e views do sistema no Redshift
+
+1. **SYS**
+    - Começam com `SYS_`.
+    - Focadas em **monitoramento de consultas e uso de workload**.
+    - Muito usadas para tunning e troubleshooting.
+2. **STV**
+    - "System Table Virtual".
+    - Contêm **dados transitórios**, ou seja, **instantâneos em memória** do que está acontecendo agora no cluster.
+    - Exemplo: status de nós, sessões, queries em execução no momento.
+3. **SVV**
+    - "System View Virtual".
+    - São **views baseadas nas STV**, expõem metadados de forma amigável.
+    - Exemplo: `SVV_TABLE_INFO` (info de tabelas, distribuição, sort keys, compressão).
+4. **STL**
+    - "System Table Log".
+    - São **logs persistentes em disco**.
+    - Registram o **histórico de queries, erros, etapas de execução**.
+    - Exemplo: `STL_QUERY` (log de queries executadas).
+5. **SVL**
+    - "System View Log".
+    - **Views baseadas nos logs STL**.
+    - Trazem informações detalhadas sobre queries e execução no **cluster principal**.
+    - Exemplo: `SVL_QLOG` (detalhes de execução das queries).
+6. **SVCS**
+    - Usadas para **detalhes de consultas em clusters principais e de concurrency scaling**.
+    - Permitem entender como a carga está sendo distribuída.
+### Exemplo prático
+Consulta do instrutor (tempo de execução das queries do último dia):
+```SQL
+SELECT
+    q.query,
+    q.starttime,
+    q.endtime,
+    DATEDIFF(ms, q.starttime, q.endtime) AS runtime_ms,
+    q.aborted
+FROM stl_query q
+JOIN svl_qlog l
+  ON q.query = l.query
+WHERE q.starttime >= GETDATE() - INTERVAL '1 day'
+ORDER BY q.starttime DESC;
+```
+- `STL_QUERY` → histórico de queries (log em disco).
+- `SVL_QLOG` → detalhes de execução.
+- O join entre eles dá uma visão bem completa: **quando rodou, quanto demorou, se falhou**.
+
+**Resumo para fixar:**
+- **STV** = snapshot em memória.
+- **SVV** = views sobre STV (metadados).
+- **STL**= logs em disco.
+- **SVL** = views sobre STL.
+- **SYS** = monitoramento de workload.
+- **SVCS** = detalhes de consultas em clusters principais e de scaling.
+---
+##  O que é a Redshift Data API?
+- Um **endpoint HTTP seguro** para executar **instruções SQL** em clusters Redshift (provisionados ou serverless).
+- Permite consultas **individuais** ou **em lote**.
+- **Dispensa drivers ODBC/JDBC** → não precisa manter conexões tradicionais.
+- Usa **AWS SDK / REST API**, ou seja, pode ser chamada de qualquer linguagem suportada pelo SDK (Python, Java, Go, etc).
+![[Pasted image 20250920115442.png]]
+---
+## Como funciona
+1. O app chama `ExecuteStatement` ou `BatchExecuteStatement`.  
+    → a API retorna um **statementId**.
+2. O app chama `DescribeStatement` para ver status (pendente, executando, concluído, erro).
+3. O app chama `GetStatementResult` para recuperar o resultado.
+4. Se necessário, pode usar `CancelStatement` para abortar.
+---
+## Segurança
+- **Não envia senhas**.
+- Usa **AWS Secrets Manager** ou **credenciais temporárias** para autenticar.
+- Controle de acesso via **IAM policies**.
+- Integra com **CloudTrail** → auditoria de chamadas de API.
+---
+## Limites Importantes (caem muito em prova!)
+
+- ⏱ **Consulta**: até 24h de duração.
+- 🔄 **Consultas ativas**: até **500** por vez.
+- 📂 **Resultado**: até **100 MB (gzip)**, armazenado por 24h.
+- 📜 **Tamanho do comando SQL**: até **100 KB**.
+- 📏 **Máx. de dados por linha**: **64 KB**.
+- 🔑 **Token de cliente**: válido por até 8h.
+- 🚦 **TPS**: por exemplo, `ExecuteStatement` → até 30 transações por segundo.
+---
+## Integrações comuns
+- **Aplicações customizadas** (via SDK ou REST).
+- **Step Functions** → orquestração de ETL.
+- **SageMaker Notebooks** → análises de ML direto no Redshift.
+- **EventBridge** →
+    - disparar queries em eventos,
+    - agendar execução periódica,
+    - ou até **streaming de resultados**.
+---
+## Vantagens principais
+
+✅ Sem drivers ou conexões complexas.  
+✅ Funciona **fora da AWS**.  
+✅ Bom para **serverless apps** e **workflows event-driven**.  
+✅ Integra-se com IAM, Secrets Manager, EventBridge, CloudTrail.
+
+**Resumo rápido para exame**:
+
+> A Data API fornece acesso seguro ao Redshift via HTTP/SDK, sem drivers, usando Secrets Manager ou credenciais temporárias. É assíncrona, com limites de 24h de execução, 100MB de resultados e 64KB por linha. Se integra com Step Functions, EventBridge e SageMaker.
