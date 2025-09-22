@@ -5,7 +5,7 @@ Serviços para migração e transferência de dados e aplicações.
 
 ## Serviços
 
-- [[Migration-And-Transfer/AWS Application Discovery Service]]
+- [[AWS Application Discovery Service e Migration Service]]
 - [[Migration-And-Transfer/AWS Application Migration Service]]
 - [[Migration-And-Transfer/AWS Database Migration Service (AWS DMS)]]
 - [[Migration-And-Transfer/AWS DataSync]]
