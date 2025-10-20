@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS-Data-Engineer-Certificacao/Migration-And-Transfer/AWS Transfer Family.md",
+                "file": "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Kubernetes Service (Amazon EKS).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AWS Transfer Family"
+              "title": "Amazon Elastic Kubernetes Service (Amazon EKS)"
             }
           },
           {
@@ -208,6 +208,18 @@
   },
   "active": "c73062ca258cccac",
   "lastOpenFiles": [
+    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Registry (Amazon ECR).md",
+    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Service (Amazon ECS).md",
+    "AWS-Data-Engineer-Certificacao/Containers/Docker.md",
+    "AWS-Data-Engineer-Certificacao/Compute/AWS SAM.md",
+    "AWS-Data-Engineer-Certificacao/Compute/AWS Lambda.md",
+    "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Shard.md",
+    "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
+    "AWS-Data-Engineer-Certificacao/Compute/AWS Batch.md",
+    "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
+    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Kubernetes Service (Amazon EKS).md",
+    "AWS-Data-Engineer-Certificacao/Analytics/AWS Glue.md",
+    "AWS-Data-Engineer-Certificacao/Migration-And-Transfer/AWS Transfer Family.md",
     "Pasted image 20250922173732.png",
     "AWS-Data-Engineer-Certificacao/Migration-And-Transfer/AWS Snow Family.md",
     "AWS-Data-Engineer-Certificacao/Migration-And-Transfer/AWS DataSync.md",
@@ -229,23 +241,11 @@
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/Data Sources.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/OLAP VS OLTP.md",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals/ETL e ELT.md",
-    "Pasted image 20250920110413.png",
-    "AWS-Data-Engineer-Certificacao/Compute/Amazon Elastic Compute Cloud (Amazon EC2).md",
     "Sem título 1.base",
     "Sem título.base",
     "AWS-Data-Engineer-Certificacao/Database/Amazon Timestream.md",
     "AWS-Data-Engineer-Certificacao/Database/Amazon Neptune.md",
     "AWS-Data-Engineer-Certificacao/Database/Amazon Keyspaces (for Apache Cassandra).md",
-    "AWS-Data-Engineer-Certificacao/Database/Amazon MemoryDB for Redis.md",
-    "AWS-Data-Engineer-Certificacao/Database/Amazon Relational Database Service (Amazon RDS).md",
-    "AWS-Data-Engineer-Certificacao/Database/RDS.md",
-    "AWS-Data-Engineer-Certificacao/Temas/App Integration.md",
-    "AWS-Data-Engineer-Certificacao/Compute/AWS Elastic Load Balance.md",
-    "AWS-Data-Engineer-Certificacao/Compute/AWS Lambda.md",
-    "AWS-Data-Engineer-Certificacao/Compute/AWS Serverless Application Repository.md",
-    "AWS-Data-Engineer-Certificacao/Compute/Escalabilidade e alta disponibilidade.md",
-    "AWS-Data-Engineer-Certificacao/Compute/AWS Batch.md",
-    "AWS-Data-Engineer-Certificacao/Containers/Amazon Elastic Container Registry (Amazon ECR).md",
     "AWS-Data-Engineer-Certificacao/Temas/Sem título",
     "AWS-Data-Engineer-Certificacao/Data-Engineering-Fundamentals",
     "Security-Identity-And-Compliance",
